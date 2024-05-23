@@ -2,3 +2,4 @@
 *.dsym
 main
 build
+build/**

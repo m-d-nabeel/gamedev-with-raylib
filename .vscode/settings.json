@@ -1,6 +1,0 @@
-{
-  "cmake.configureSettings": {
-    "CMAKE_TOOLCHAIN_FILE": "/home/disable/vcpkg/scripts/buildsystems/vcpkg.cmake"
-  },
-  "clangd.arguments": []
-}

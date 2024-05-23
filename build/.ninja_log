@@ -1,0 +1,5 @@
+# ninja log v5
+59	224	1716446279632697709	learningcpp-gamedev	5c4319bd3a5d283d
+1	38	1716442822965609573	CMakeFiles/learningcpp-gamedev.dir/src/ball.cpp.o	69835df7c5fe79cb
+1	36	1716442542557878255	CMakeFiles/my_raylib_project.dir/src/main.cpp.o	4471029b68cc8127
+1	59	1716446279468697504	CMakeFiles/learningcpp-gamedev.dir/src/main.cpp.o	41b6cfbef9504be4

@@ -1,16 +1,15 @@
 #pragma once
 
-class Ball
-{
+class Ball {
 public:
-    Ball();
-    void Update();
-    void Draw();
+  Ball();
+  void Update();
+  void Draw();
 
 private:
-    int x;
-    int y;
-    int speedX;
-    int speedY;
-    int radius;
+  int x;
+  int y;
+  int speedX;
+  int speedY;
+  int radius;
 };

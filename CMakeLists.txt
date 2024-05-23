@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.12)
+project(learningcpp-gamedev)
+set(CMAKE_CXX_STANDARD 11)
+include("/home/disable/vcpkg/scripts/buildsystems/vcpkg.cmake")
+find_package(raylib REQUIRED)
+file(GLOB SOURCES "src/*.cpp")
+add_executable(learningcpp-gamedev ${SOURCES})
+target_link_libraries(learningcpp-gamedev PRIVATE raylib)

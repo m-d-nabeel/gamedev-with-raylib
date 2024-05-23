@@ -1,3 +1,0 @@
-/home/disable/projects/learningcpp-gamedev/build/CMakeFiles/learningcpp-gamedev.dir
-/home/disable/projects/learningcpp-gamedev/build/CMakeFiles/edit_cache.dir
-/home/disable/projects/learningcpp-gamedev/build/CMakeFiles/rebuild_cache.dir

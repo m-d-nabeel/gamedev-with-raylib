@@ -5,11 +5,18 @@ public:
   Ball();
   void Update();
   void Draw();
+  float GetX();
+  float GetY();
+  float GetRadius();
+  float GetSpeedX();
+  float GetSpeedY();
+  void SetSpeedX(float speedX);
+  void SetSpeedY(float speedY);
 
 private:
-  int x;
-  int y;
-  int speedX;
-  int speedY;
-  int radius;
+  float x;
+  float y;
+  float speedX;
+  float speedY;
+  float radius;
 };

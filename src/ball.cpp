@@ -21,3 +21,17 @@ void Ball::Update() {
 }
 
 void Ball::Draw() { DrawCircle(x, y, radius, WHITE); }
+
+float Ball::GetX() { return x; }
+
+float Ball::GetY() { return y; }
+
+float Ball::GetRadius() { return radius; }
+
+float Ball::GetSpeedX() { return speedX; }
+
+float Ball::GetSpeedY() { return speedY; }
+
+void Ball::SetSpeedX(float speedX) { this->speedX = speedX; }
+
+void Ball::SetSpeedY(float speedY) { this->speedY = speedY; }

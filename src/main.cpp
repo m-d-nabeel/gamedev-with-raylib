@@ -4,15 +4,9 @@
 #include "constants.h"
 #include <raylib.h>
 
-struct BallSpeed {
-  float x;
-  float y;
-};
-
 enum GameState {
   PLAYING,
   PAUSED,
-  RESUMED,
   GAME_OVER,
 };
 
@@ -23,42 +17,17 @@ void DrawCenteredText(const char *text, int fontSize, Color color,
            color);
 }
 
-// void HandleGameState(GameState &gameState, Ball &ball, BallSpeed &bs) {
-//   switch (gameState) {
-//   case PLAYING:
-//     break;
-//   case PAUSED:
-//     if (!ball.IsNotMoving()) {
-//       bs.x = ball.GetSpeedX();
-//       bs.y = ball.GetSpeedY();
-//     }
-//     ball.SetSpeedX(0);
-//     ball.SetSpeedY(0);
-//     DrawCenteredText("Paused", 50, BLUE, -50);
-//     break;
-//   case RESUMED:
-//     ball.SetSpeedX(bs.x);
-//     ball.SetSpeedY(bs.y);
-//     break;
-//   case GAME_OVER:
-//     DrawCenteredText("Game Over", 60, RED, -60);
-//     ball.SetSpeedX(0);
-//     ball.SetSpeedY(0);
-//     break;
-//   }
-// }
-
-void ResetGame(Ball &ball, Bricks &bricks) {
+void ResetGame(Ball &ball, Bricks &bricks, Bat &bat) {
   ball = Ball();
   bricks.Reset();
+  bat = Bat();
 }
 
-void UpdateGame(GameState &gameState, Ball &ball, Bat &bat, Bricks &bricks,
-                BallSpeed &bs) {
+void UpdateGame(GameState &gameState, Ball &ball, Bat &bat, Bricks &bricks) {
   if (IsKeyPressed(KEY_ENTER) && ball.IsNotMoving() &&
       bat.IsCollidingWithBall(ball)) {
     ball.SetSpeedX(1);
-    ball.SetSpeedY(-5);
+    ball.SetSpeedY(-1 * BALL_SPEED);
   }
 
   bricks.Update(ball);
@@ -98,23 +67,35 @@ int main() {
   InitWindow(S_WIDTH, S_HEIGHT, "Learning CPP with Raylib");
   SetTargetFPS(FRATE);
 
+  const int horizontalBricks =
+      (GetScreenWidth() + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+
   Ball ball = Ball();
   Bat bat = Bat();
-  Bricks bricks = Bricks(5, 5);
-  BallSpeed bs;
+  Bricks bricks = Bricks(horizontalBricks, 5);
   GameState gameState = PLAYING;
 
   while (!WindowShouldClose()) {
+
+    if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_FOUR) || IsKeyDown(KEY_A)) &&
+        gameState == PLAYING) {
+      bat.Move(-1, ball);
+    }
+    if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_SIX) || IsKeyDown(KEY_D)) &&
+        gameState == PLAYING) {
+      bat.Move(1, ball);
+    }
+
     if (IsKeyPressed(KEY_R)) {
-      ResetGame(ball, bricks);
+      ResetGame(ball, bricks, bat);
       gameState = PLAYING;
     }
 
     if (IsKeyPressed(KEY_SPACE)) {
-      if (gameState == PLAYING || gameState == RESUMED) {
+      if (gameState == PLAYING) {
         gameState = PAUSED;
       } else if (gameState == PAUSED) {
-        gameState = RESUMED;
+        gameState = PLAYING;
       }
     }
 
@@ -123,10 +104,8 @@ int main() {
     }
 
     if (gameState != PAUSED) {
-      UpdateGame(gameState, ball, bat, bricks, bs);
+      UpdateGame(gameState, ball, bat, bricks);
     }
-
-
 
     BeginDrawing();
     DrawGame(ball, bat, bricks, gameState);

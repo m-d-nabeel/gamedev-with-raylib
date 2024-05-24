@@ -6,10 +6,9 @@ class Bat {
 public:
   Bat();
   void Draw();
-  void SetColor(unsigned char r, unsigned char g, unsigned char b,
-                unsigned char a);
   float GetX();
   bool IsCollidingWithBall(Ball &ball);
+  void Move(int direction, Ball &ball);
 
 private:
   float x;

@@ -7,6 +7,8 @@ public:
   void Draw();
   float GetX();
   float GetY();
+  void SetX(float x);
+  void SetY(float y);
   float GetRadius();
   float GetSpeedX();
   float GetSpeedY();

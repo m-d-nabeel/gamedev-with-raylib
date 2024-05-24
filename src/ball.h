@@ -12,6 +12,7 @@ public:
   float GetSpeedY();
   void SetSpeedX(float speedX);
   void SetSpeedY(float speedY);
+  bool IsNotMoving();
 
 private:
   float x;

@@ -1,11 +1,12 @@
 #include "ball.h"
+#include "constants.h"
 #include <raylib.h>
 
 Ball::Ball() {
-  x = 100;
-  y = 100;
-  speedX = 5;
-  speedY = 5;
+  x = S_WIDTH / 2;
+  y = BOTTOM_LINE - BAT_HEIGHT - BALL_RADIUS - 1;
+  speedX = 0;
+  speedY = 0;
   radius = 15;
 }
 
@@ -21,6 +22,8 @@ void Ball::Update() {
 }
 
 void Ball::Draw() { DrawCircle(x, y, radius, WHITE); }
+
+bool Ball::IsNotMoving() { return speedX == 0 && speedY == 0; }
 
 float Ball::GetX() { return x; }
 

@@ -2,18 +2,13 @@
 
 #include "ball.h"
 #include "raylib.h"
-
-class Brick {
+class Bat {
 public:
-  Brick();
+  Bat();
   void Draw();
-  void SetPosition(float x, float y);
   void SetColor(unsigned char r, unsigned char g, unsigned char b,
                 unsigned char a);
-  void SetVisible(bool visible);
-  bool IsVisible();
   float GetX();
-  float GetY();
   bool IsCollidingWithBall(Ball &ball);
 
 private:
@@ -22,5 +17,4 @@ private:
   float width;
   float height;
   Color color;
-  bool visible;
 };

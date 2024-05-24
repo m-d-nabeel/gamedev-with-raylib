@@ -1,30 +1,31 @@
-#include <raylib.h>
-
 #include "brick.h"
+#include "constants.h"
+#include <raylib.h>
 
 Brick::Brick() {
   width = 100;
   height = 30;
   x = 100;
   y = 100;
-  color = Color{20, 160, 133, 255};
+  color = Color{};
 }
 
-void Brick::Draw() { DrawRectangle(x, y, width, height, color); }
+void Brick::Draw() { DrawRectangle(x, y, BRICK_WIDTH, BRICK_HEIGHT, color); }
 
 void Brick::SetPosition(float x, float y) {
   this->x = x;
   this->y = y;
 }
 
-void Brick::SetSize(float width, float height) {
-  this->width = width;
-  this->height = height;
-}
-
 void Brick::SetColor(unsigned char r, unsigned char g, unsigned char b,
                      unsigned char a) {
   color = Color{r, g, b, a};
+}
+
+bool Brick::IsCollidingWithBall(Ball &ball) {
+  Vector2 ballPosition = {ball.GetX(), ball.GetY()};
+  Rectangle brickRectangle = {x, y, BRICK_WIDTH, BRICK_HEIGHT};
+  return CheckCollisionCircleRec(ballPosition, BALL_RADIUS, brickRectangle);
 }
 
 void Brick::SetVisible(bool visible) { this->visible = visible; }
@@ -34,7 +35,3 @@ bool Brick::IsVisible() { return visible; }
 float Brick::GetX() { return x; }
 
 float Brick::GetY() { return y; }
-
-float Brick::GetWidth() { return width; }
-
-float Brick::GetHeight() { return height; }

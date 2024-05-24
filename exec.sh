@@ -1,5 +1,14 @@
 #! /usr/bin/bash
-cmake --preset=default && cmake --build build
+clear
+cmake --preset=default
+
+if [ $? -ne 0 ]; then
+    echo "CMake failed"
+    exit 1
+fi
+
+cmake --build build
+
 if [ $? -eq 0 ]; then
     ./build/learningcpp-gamedev
 else

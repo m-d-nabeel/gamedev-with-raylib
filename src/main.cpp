@@ -10,11 +10,9 @@ enum GameState {
   GAME_OVER,
 };
 
-void DrawCenteredText(const char *text, int fontSize, Color color,
-                      int paddingY = 0) {
+void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0) {
   float width = MeasureText(text, fontSize);
-  DrawText(text, S_WIDTH / 2 - width / 2, S_HEIGHT / 2 + paddingY, fontSize,
-           color);
+  DrawText(text, S_WIDTH / 2 - width / 2, S_HEIGHT / 2 + paddingY, fontSize, color);
 }
 
 void ResetGame(Ball &ball, Bricks &bricks, Bat &bat) {
@@ -24,8 +22,7 @@ void ResetGame(Ball &ball, Bricks &bricks, Bat &bat) {
 }
 
 void UpdateGame(GameState &gameState, Ball &ball, Bat &bat, Bricks &bricks) {
-  if (IsKeyPressed(KEY_ENTER) && ball.IsNotMoving() &&
-      bat.IsCollidingWithBall(ball)) {
+  if (IsKeyPressed(KEY_ENTER) && ball.IsNotMoving() && bat.IsCollidingWithBall(ball)) {
     ball.SetSpeedX(1);
     ball.SetSpeedY(-1 * BALL_SPEED);
   }
@@ -68,25 +65,21 @@ int main() {
   InitWindow(S_WIDTH, S_HEIGHT, "Learning CPP with Raylib");
   SetTargetFPS(FRATE);
 
-  const int horizontalBricks =
-      (GetScreenWidth() + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  const int horizontalBricks = (GetScreenWidth() + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
 
-  const int verticalBricks =
-      (GetScreenHeight() / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  const int verticalBricks = (GetScreenHeight() / 2) / (BRICK_HEIGHT + BRICK_PADDING);
 
-  Ball ball = Ball();
-  Bat bat = Bat();
-  Bricks bricks = Bricks(horizontalBricks, verticalBricks);
+  Ball ball           = Ball();
+  Bat bat             = Bat();
+  Bricks bricks       = Bricks(horizontalBricks, verticalBricks);
   GameState gameState = PLAYING;
 
   while (!WindowShouldClose()) {
 
-    if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_FOUR) || IsKeyDown(KEY_A)) &&
-        gameState == PLAYING) {
+    if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_FOUR) || IsKeyDown(KEY_A)) && gameState == PLAYING) {
       bat.Move(-1, ball);
     }
-    if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_SIX) || IsKeyDown(KEY_D)) &&
-        gameState == PLAYING) {
+    if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_SIX) || IsKeyDown(KEY_D)) && gameState == PLAYING) {
       bat.Move(1, ball);
     }
 

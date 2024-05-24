@@ -3,8 +3,8 @@
 #include <raylib.h>
 
 Ball::Ball() {
-  x = S_WIDTH / 2;
-  y = GetScreenHeight() - BRICK_HEIGHT;
+  x      = S_WIDTH / 2;
+  y      = GetScreenHeight() - BRICK_HEIGHT;
   speedX = 0;
   speedY = 0;
   radius = 15;
@@ -21,24 +21,46 @@ void Ball::Update() {
     speedY *= -1;
 }
 
-void Ball::Draw() { DrawCircle(x, y, radius, DARKBROWN); }
+void Ball::Draw() {
+  DrawCircle(x, y, radius, DARKBROWN);
+}
 
-bool Ball::IsNotMoving() { return speedX == 0 && speedY == 0; }
+bool Ball::IsNotMoving() {
+  return speedX == 0 && speedY == 0;
+}
 
-float Ball::GetX() { return x; }
+float Ball::GetX() {
+  return x;
+}
 
-float Ball::GetY() { return y; }
+float Ball::GetY() {
+  return y;
+}
 
-void Ball::SetX(float x) { this->x = x; }
+void Ball::SetX(float x) {
+  this->x = x;
+}
 
-void Ball::SetY(float y) { this->y = y; }
+void Ball::SetY(float y) {
+  this->y = y;
+}
 
-float Ball::GetRadius() { return radius; }
+float Ball::GetRadius() {
+  return radius;
+}
 
-float Ball::GetSpeedX() { return speedX; }
+float Ball::GetSpeedX() {
+  return speedX;
+}
 
-float Ball::GetSpeedY() { return speedY; }
+float Ball::GetSpeedY() {
+  return speedY;
+}
 
-void Ball::SetSpeedX(float speedX) { this->speedX = speedX; }
+void Ball::SetSpeedX(float speedX) {
+  this->speedX = speedX;
+}
 
-void Ball::SetSpeedY(float speedY) { this->speedY = speedY; }
+void Ball::SetSpeedY(float speedY) {
+  this->speedY = speedY;
+}

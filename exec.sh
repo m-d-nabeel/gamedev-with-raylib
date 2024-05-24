@@ -14,3 +14,5 @@ if [ $? -eq 0 ]; then
 else
     echo "Build failed"
 fi
+
+# clang-format -i ./src/*

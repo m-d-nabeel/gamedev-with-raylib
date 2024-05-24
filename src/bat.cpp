@@ -3,16 +3,16 @@
 #include "constants.h"
 #include <raylib.h>
 
-Bat::Bat()
-    : x(S_WIDTH / 2 - BAT_WIDTH / 2), y(S_HEIGHT - BALL_RADIUS),
-      width(BAT_WIDTH), height(BAT_HEIGHT) {
+Bat::Bat() : x(S_WIDTH / 2 - BAT_WIDTH / 2), y(S_HEIGHT - BALL_RADIUS), width(BAT_WIDTH), height(BAT_HEIGHT) {
   color = DARKBLUE;
 }
 
-void Bat::Draw() { DrawRectangle(x, y, width, height, color); }
+void Bat::Draw() {
+  DrawRectangle(x, y, width, height, color);
+}
 
 bool Bat::IsCollidingWithBall(Ball &ball) {
-  Vector2 ballPosition = {ball.GetX(), ball.GetY()};
+  Vector2 ballPosition   = {ball.GetX(), ball.GetY()};
   Rectangle batRectangle = {x, y, BAT_WIDTH, BAT_HEIGHT};
   return CheckCollisionCircleRec(ballPosition, BALL_RADIUS, batRectangle);
 }
@@ -41,4 +41,6 @@ void Bat::Move(int direction, Ball &ball) {
   }
 }
 
-float Bat::GetX() { return x; }
+float Bat::GetX() {
+  return x;
+}

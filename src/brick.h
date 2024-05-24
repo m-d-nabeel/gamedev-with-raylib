@@ -8,8 +8,7 @@ public:
   Brick();
   void Draw();
   void SetPosition(float x, float y);
-  void SetColor(unsigned char r, unsigned char g, unsigned char b,
-                unsigned char a);
+  void SetColor(Color c);
   void SetVisible(bool visible);
   bool IsVisible();
   float GetX();

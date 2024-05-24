@@ -17,10 +17,7 @@ void Brick::SetPosition(float x, float y) {
   this->y = y;
 }
 
-void Brick::SetColor(unsigned char r, unsigned char g, unsigned char b,
-                     unsigned char a) {
-  color = Color{r, g, b, a};
-}
+void Brick::SetColor(Color c) { color = c; }
 
 bool Brick::IsCollidingWithBall(Ball &ball) {
   Vector2 ballPosition = {ball.GetX(), ball.GetY()};

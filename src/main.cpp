@@ -49,6 +49,7 @@ void DrawGame(Ball &ball, Bat &bat, Bricks &bricks, GameState gameState) {
   ClearBackground(GRAY);
   DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
   DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
+  DrawCenteredText("Press SPACE to pause ", 20, LIGHTGRAY, 40);
 
   bricks.Draw();
   ball.Draw();
@@ -70,9 +71,12 @@ int main() {
   const int horizontalBricks =
       (GetScreenWidth() + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
 
+  const int verticalBricks =
+      (GetScreenHeight() / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+
   Ball ball = Ball();
   Bat bat = Bat();
-  Bricks bricks = Bricks(horizontalBricks, 5);
+  Bricks bricks = Bricks(horizontalBricks, verticalBricks);
   GameState gameState = PLAYING;
 
   while (!WindowShouldClose()) {

@@ -1,8 +1,8 @@
 #pragma once
 
 constexpr int FRATE = 60;
-constexpr float S_WIDTH = 800.0f;
-constexpr float S_HEIGHT = 600.0f;
+constexpr float S_WIDTH = 1200.0f;
+constexpr float S_HEIGHT = 900.0f;
 constexpr int BRICK_WIDTH = 100;
 constexpr int BRICK_HEIGHT = 30;
 constexpr int BALL_RADIUS = 15;

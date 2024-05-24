@@ -3,6 +3,8 @@
 #include "constants.h"
 #include <raylib.h>
 
+const Color BRICK_COLORS[] = {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, BROWN};
+
 Bricks::Bricks(int hCount, int vCount)
     : brickHorizontalCount(hCount), brickVerticalCount(vCount) {
   arrBricks = new Brick *[brickVerticalCount];
@@ -16,8 +18,7 @@ Bricks::Bricks(int hCount, int vCount)
       arrBricks[i][j].SetPosition(leftPadding +
                                       j * (BRICK_WIDTH + BRICK_PADDING),
                                   i * (BRICK_HEIGHT + BRICK_PADDING));
-      arrBricks[i][j].SetColor(GetRandomValue(0, 255), GetRandomValue(0, 255),
-                               GetRandomValue(0, 255), 255); // Fully opaque
+      arrBricks[i][j].SetColor(BRICK_COLORS[GetRandomValue(0, 6)]);
       arrBricks[i][j].SetVisible(true);
     }
   }

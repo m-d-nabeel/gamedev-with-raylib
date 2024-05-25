@@ -24,9 +24,8 @@ void Brick::SetColor(Color c) {
 }
 
 bool Brick::IsCollidingWithBall(Ball &ball) {
-  Vector2 ballPosition     = {ball.GetX(), ball.GetY()};
   Rectangle brickRectangle = {x, y, BRICK_WIDTH, BRICK_HEIGHT};
-  return CheckCollisionCircleRec(ballPosition, BALL_RADIUS, brickRectangle);
+  return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, brickRectangle);
 }
 
 void Brick::SetVisible(bool visible) {

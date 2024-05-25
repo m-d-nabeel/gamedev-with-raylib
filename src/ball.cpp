@@ -1,66 +1,52 @@
 #include "ball.h"
 #include "constants.h"
 #include <raylib.h>
+#include <raymath.h>
 
 Ball::Ball() {
-  x      = S_WIDTH / 2;
-  y      = GetScreenHeight() - BRICK_HEIGHT;
-  speedX = 0;
-  speedY = 0;
-  radius = 15;
+  position = {S_WIDTH / 2, static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
+  speed    = {0, 0};
+  radius   = 15;
 }
 
 void Ball::Update() {
-  x += speedX;
-  y += speedY;
+  position = Vector2Add(position, speed);
+  if (position.x + radius >= GetScreenWidth() || position.x - radius <= 0) {
+    speed.x *= -1;
+  }
+  if (position.y + radius >= GetScreenHeight() || position.y - radius <= 0) {
+    speed.y *= -1;
+  }
+}
 
-  if (x + radius >= GetScreenWidth() || x - radius <= 0)
-    speedX *= -1;
-
-  if (y + radius >= GetScreenHeight() || y - radius <= 0)
-    speedY *= -1;
+bool Ball::IsCollidingWithBottomWall() {
+  return position.y + radius >= GetScreenHeight();
 }
 
 void Ball::Draw() {
-  DrawCircle(x, y, radius, DARKBROWN);
+  DrawCircleV(position, radius, DARKBROWN);
 }
 
 bool Ball::IsNotMoving() {
-  return speedX == 0 && speedY == 0;
+  return Vector2LengthSqr(speed) == 0;
 }
 
-float Ball::GetX() {
-  return x;
+Vector2 Ball::GetPosition() {
+  return position;
 }
 
-float Ball::GetY() {
-  return y;
+void Ball::SetPosition(Vector2 position) {
+  this->position = position;
 }
 
-void Ball::SetX(float x) {
-  this->x = x;
-}
-
-void Ball::SetY(float y) {
-  this->y = y;
+void Ball::SetSpeed(Vector2 speed) {
+  this->speed = speed;
 }
 
 float Ball::GetRadius() {
   return radius;
 }
 
-float Ball::GetSpeedX() {
-  return speedX;
-}
-
-float Ball::GetSpeedY() {
-  return speedY;
-}
-
-void Ball::SetSpeedX(float speedX) {
-  this->speedX = speedX;
-}
-
-void Ball::SetSpeedY(float speedY) {
-  this->speedY = speedY;
+Vector2 Ball::GetSpeed() {
+  return speed;
 }

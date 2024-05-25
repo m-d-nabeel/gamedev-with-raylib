@@ -16,3 +16,9 @@ constexpr int BOTTOM_LINE        = S_HEIGHT + BALL_RADIUS;
 constexpr int BAT_SPEED          = 10;
 constexpr float BAT_WIDTH        = 200.0f;
 constexpr float BAT_HEIGHT       = 20.0f;
+
+enum GameState {
+  PLAYING,
+  PAUSED,
+  GAME_OVER,
+};

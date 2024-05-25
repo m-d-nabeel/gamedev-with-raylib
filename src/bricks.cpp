@@ -1,6 +1,7 @@
 #include "bricks.h"
 #include "brick.h"
 #include "constants.h"
+#include "raymath.h"
 #include <raylib.h>
 
 const Color BRICK_COLORS[] = {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, BROWN};
@@ -34,7 +35,7 @@ void Bricks::Update(Ball &ball) {
     for (int j = 0; j < brickHorizontalCount; j++) {
       if (arrBricks[i][j].IsVisible()) {
         if (arrBricks[i][j].IsCollidingWithBall(ball)) {
-          ball.SetSpeedY(ball.GetSpeedY() * -1);
+          ball.SetSpeed(Vector2Reflect(ball.GetSpeed(), {0, 1}));
           arrBricks[i][j].SetVisible(false);
         }
         arrBricks[i][j].Draw();

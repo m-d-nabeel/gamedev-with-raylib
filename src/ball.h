@@ -1,25 +1,22 @@
 #pragma once
 
+#include "raylib.h"
+#include "raymath.h"
 class Ball {
 public:
   Ball();
   void Update();
   void Draw();
-  float GetX();
-  float GetY();
-  void SetX(float x);
-  void SetY(float y);
+  void SetPosition(Vector2 position);
+  void SetSpeed(Vector2 speed);
+  Vector2 GetSpeed();
+  Vector2 GetPosition();
   float GetRadius();
-  float GetSpeedX();
-  float GetSpeedY();
-  void SetSpeedX(float speedX);
-  void SetSpeedY(float speedY);
   bool IsNotMoving();
+  bool IsCollidingWithBottomWall();
 
 private:
-  float x;
-  float y;
-  float speedX;
-  float speedY;
+  Vector2 position;
+  Vector2 speed;
   float radius;
 };

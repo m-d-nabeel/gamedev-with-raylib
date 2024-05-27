@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr int FRATE              = 60;
+constexpr int FRAME_RATE         = 60;
 constexpr float INIT_SWIDTH      = 1200.0f;
 constexpr float INIT_SHEIGHT     = 900.0f;
 constexpr int BRICK_WIDTH        = 100;

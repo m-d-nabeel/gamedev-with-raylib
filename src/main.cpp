@@ -4,7 +4,7 @@
 
 int main() {
   InitWindow(INIT_SWIDTH, INIT_SHEIGHT, "Learning CPP with Raylib");
-  SetTargetFPS(FRATE);
+  SetTargetFPS(FRAME_RATE);
   Game game = Game();
   while (!WindowShouldClose()) {
     game.HandleKeyboardInput();

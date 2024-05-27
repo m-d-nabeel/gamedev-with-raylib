@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ball.h"
 #include "bat.h"
 #include "bricks.h"

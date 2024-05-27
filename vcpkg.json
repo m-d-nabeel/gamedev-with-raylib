@@ -1,5 +1,5 @@
 {
-  "name": "learningcpp-gamedev",
+  "name": "raylib-cpp-gamedev",
   "version-string": "1.0",
   "dependencies": ["raylib"]
 }

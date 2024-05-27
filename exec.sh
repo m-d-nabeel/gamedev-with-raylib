@@ -10,7 +10,7 @@ fi
 cmake --build build
 
 if [ $? -eq 0 ]; then
-    ./build/learningcpp-gamedev
+    ./build/raylib-cpp-gamedev
 else
     echo "Build failed"
 fi

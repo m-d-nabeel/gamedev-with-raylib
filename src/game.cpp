@@ -2,11 +2,13 @@
 #include "raylib.h"
 
 Game::Game() {
-  ScreenWidth      = INIT_SWIDTH;
-  ScreenHeight     = INIT_SHEIGHT;
-  gameState        = GameState::PLAYING;
-  int hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
-  int vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  ScreenWidth  = INIT_SWIDTH;
+  ScreenHeight = INIT_SHEIGHT;
+  gameState    = GameState::PLAYING;
+  // int hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  // int vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  int hBricksCount = 2;
+  int vBricksCount = 2;
   bricks           = new Bricks(hBricksCount, vBricksCount);
   bat              = Bat();
   ball             = Ball();
@@ -26,6 +28,10 @@ void Game::UpdateGame() {
     gameState = GameState::GAME_OVER;
     return;
   }
+  if (bricks->IsAllBricksDestroyed()) {
+    gameState = GameState::GAME_WON;
+    return;
+  }
   bat.HandleKeyboardInput(ball, gameState);
   bricks->Update(ball);
   ball.Update();
@@ -33,10 +39,14 @@ void Game::UpdateGame() {
 }
 
 void Game::DrawGame() {
-  ClearBackground(GRAY);
-  DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
-  DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
-  DrawCenteredText("Press SPACE to pause ", 20, LIGHTGRAY, 40);
+  ClearBackground(BLACK);
+
+  if (gameState == GameState::PLAYING) {
+    DrawCenteredText("Press SPACE to pause ", 20, LIGHTGRAY, 40);
+  } else {
+    DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
+    DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
+  }
 
   bricks->Draw();
   ball.Draw();
@@ -47,6 +57,9 @@ void Game::DrawGame() {
   } else if (gameState == GameState::GAME_OVER) {
     ball.SetSpeed({0, 0});
     DrawCenteredText("Game Over", 60, RED, -60);
+  } else if (gameState == GameState::GAME_WON) {
+    ball.SetSpeed({0, 0});
+    DrawCenteredText("You Won", 60, GREEN, -60);
   }
 }
 

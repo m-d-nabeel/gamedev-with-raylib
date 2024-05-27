@@ -11,10 +11,12 @@ public:
   void Update(Ball &ball);
   void Draw();
   void Reset();
+  bool IsAllBricksDestroyed();
   ~Bricks();
 
 private:
   Brick **arrBricks;
   int brickHorizontalCount;
   int brickVerticalCount;
+  int totalBricks;
 };

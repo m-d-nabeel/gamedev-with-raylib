@@ -13,9 +13,6 @@ constexpr int BALL_START_SPEED_Y = 10;
 constexpr int BAT_SPEED          = 10;
 constexpr float BAT_WIDTH        = 200.0f;
 constexpr float BAT_HEIGHT       = 20.0f;
+constexpr int SPEEDUP            = 2;
 
-enum GameState {
-  PLAYING,
-  PAUSED,
-  GAME_OVER,
-};
+enum GameState { PLAYING, PAUSED, GAME_OVER, GAME_WON };

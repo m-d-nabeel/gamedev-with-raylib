@@ -12,11 +12,13 @@ public:
   void HandleCollisionWithBall(Ball &ball);
   void Move(int direction, Ball &ball);
   void HandleKeyboardInput(Ball &ball, GameState &gameState);
+  int GetMovement();
 
 private:
   float x;
   float y;
   float width;
   float height;
+  int movement;
   Color color;
 };

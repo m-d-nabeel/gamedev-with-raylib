@@ -6,12 +6,16 @@
 
 const Color BRICK_COLORS[] = {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, BROWN};
 
-Bricks::Bricks() : brickHorizontalCount(0), brickVerticalCount(0) {
-  arrBricks = nullptr;
+Bricks::Bricks() {
+  brickHorizontalCount = 0;
+  brickVerticalCount   = 0;
+  totalBricks          = 0;
+  arrBricks            = nullptr;
 }
 
 Bricks::Bricks(int hCount, int vCount) : brickHorizontalCount(hCount), brickVerticalCount(vCount) {
-  arrBricks = new Brick *[brickVerticalCount];
+  arrBricks   = new Brick *[brickVerticalCount];
+  totalBricks = brickHorizontalCount * brickVerticalCount;
   const int leftoutSpace =
       INIT_SWIDTH - (brickHorizontalCount * BRICK_WIDTH + (brickHorizontalCount - 1) * BRICK_PADDING);
   const int leftPadding = leftoutSpace / 2;
@@ -42,6 +46,7 @@ void Bricks::Update(Ball &ball) {
         if (arrBricks[i][j].IsCollidingWithBall(ball)) {
           ball.SetSpeed(Vector2Reflect(ball.GetSpeed(), {0, 1}));
           arrBricks[i][j].SetVisible(false);
+          totalBricks--;
         }
         arrBricks[i][j].Draw();
       }
@@ -55,6 +60,7 @@ void Bricks::Reset() {
       arrBricks[i][j].SetVisible(true);
     }
   }
+  totalBricks = brickHorizontalCount * brickVerticalCount;
 }
 
 Bricks::~Bricks() {
@@ -62,4 +68,8 @@ Bricks::~Bricks() {
     delete[] arrBricks[i];
   }
   delete[] arrBricks;
+}
+
+bool Bricks::IsAllBricksDestroyed() {
+  return totalBricks == 0;
 }

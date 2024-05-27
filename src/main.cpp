@@ -1,22 +1,13 @@
-#include "../include/constants.h"
 #include "../include/game.h"
 #include <raylib.h>
 
 int main() {
-  InitWindow(INIT_SWIDTH, INIT_SHEIGHT, "Learning CPP with Raylib");
+  InitWindow(INIT_SWIDTH, INIT_SHEIGHT, "Breakout Game");
   SetTargetFPS(FRAME_RATE);
   Game game = Game();
+  game.ResetGame();
   while (!WindowShouldClose()) {
-    game.HandleKeyboardInput();
-    game.UpdateGame();
-    BeginDrawing();
-    game.DrawGame();
-    EndDrawing();
-    if (Game::isFullscreen) {
-      ToggleFullscreen();
-      game.ResetGame();
-      Game::isFullscreen = false;
-    }
+    game.LoopLogic();
   }
   return 0;
 }

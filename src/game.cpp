@@ -3,16 +3,17 @@
 
 Game::Game() {
   gameState    = GameState::PLAYING;
-  hBricksCount = (GSW + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
-  vBricksCount = (GSH / 2) / (BRICK_HEIGHT + BRICK_PADDING);
-  bricks       = new Bricks(hBricksCount, vBricksCount);
+  hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  bricks       = Bricks();
   bat          = Bat();
   ball         = Ball();
+  isFullScreen = false;
 }
 
 void Game::ResetGame() {
   ball   = Ball();
-  bricks = new Bricks(hBricksCount, vBricksCount);
+  bricks = Bricks(hBricksCount, vBricksCount);
   bat    = Bat();
 }
 
@@ -24,12 +25,12 @@ void Game::UpdateGame() {
     gameState = GameState::GAME_OVER;
     return;
   }
-  if (bricks->IsAllBricksDestroyed()) {
+  if (bricks.IsAllBricksDestroyed()) {
     gameState = GameState::GAME_WON;
     return;
   }
   bat.HandleKeyboardInput(ball, gameState);
-  bricks->Update(ball);
+  bricks.Update(ball);
   ball.Update();
   bat.HandleCollisionWithBall(ball);
 }
@@ -44,7 +45,7 @@ void Game::DrawGame() {
     DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
   }
 
-  bricks->Draw();
+  bricks.Draw();
   ball.Draw();
   bat.Draw();
 
@@ -72,18 +73,29 @@ void Game::HandleKeyboardInput() {
     }
   }
   if (IsKeyPressed(KEY_F11)) {
-    int monitor = GetCurrentMonitor();
-    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
-    isFullscreen = true;
+    if (isFullScreen) {
+      SetWindowSize(INIT_SWIDTH, INIT_SHEIGHT);
+      isFullScreen = false;
+    } else {
+      int monitor = GetCurrentMonitor();
+      SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+      isFullScreen = true;
+    }
   }
 }
 
-Game::~Game() {
-  delete bricks;
-  CloseWindow();
+void Game::LoopLogic() {
+  HandleKeyboardInput();
+  UpdateGame();
+  BeginDrawing();
+  DrawGame();
+  EndDrawing();
+  if (isFullScreen) {
+    ToggleFullscreen();
+    isFullScreen = false;
+    RedrawBricks();
+  }
 }
-
-bool Game::isFullscreen = false;
 
 void Game::DrawCenteredText(const char *text, int fontSize, Color color, int paddingY) {
   float screenWidth  = GetScreenWidth();
@@ -93,4 +105,10 @@ void Game::DrawCenteredText(const char *text, int fontSize, Color color, int pad
   float posX         = screenWidth / 2 - textWidth / 2;
   float posY         = screenHeight / 2 - textHeight / 2 + paddingY;
   DrawText(text, static_cast<int>(posX), static_cast<int>(posY), fontSize, color);
+}
+
+void Game::RedrawBricks() {
+  ball = Ball();
+  bat  = Bat();
+  bricks.RenderForCurrWindow();
 }

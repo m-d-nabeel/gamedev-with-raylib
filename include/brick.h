@@ -9,6 +9,7 @@ public:
   void Draw();
   void SetPosition(float x, float y);
   void SetColor(Color c);
+  Color GetColor();
   void SetVisible(bool visible);
   bool IsVisible();
   float GetX();

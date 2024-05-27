@@ -43,3 +43,7 @@ float Brick::GetX() {
 float Brick::GetY() {
   return y;
 }
+
+Color Brick::GetColor() {
+  return color;
+}

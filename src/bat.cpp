@@ -6,10 +6,10 @@
 
 Bat::Bat() {
   color  = DARKBLUE;
-  x      = (GSW - BAT_WIDTH) / 2;
+  x      = (GetScreenWidth() - BAT_WIDTH) / 2;
   width  = BAT_WIDTH;
   height = BAT_HEIGHT;
-  y      = GSH - BALL_RADIUS;
+  y      = GetScreenHeight() - BALL_RADIUS;
 }
 
 void Bat::Draw() {
@@ -18,7 +18,7 @@ void Bat::Draw() {
 }
 
 bool Bat::IsCollidingWithBall(Ball &ball) {
-  Rectangle batRectangle = {x, y, BAT_WIDTH + 0.5f, BAT_HEIGHT + 0.5f};
+  Rectangle batRectangle = {x, y, BAT_WIDTH + 10.0f, BAT_HEIGHT + 10.0f};
   return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, batRectangle);
 }
 
@@ -37,14 +37,14 @@ void Bat::Move(int direction, Ball &ball) {
     x = -width / 2;
   }
 
-  if (x + width / 2 >= GSW) {
-    x = GSW - width / 2;
+  if (x + width / 2 >= GetScreenWidth()) {
+    x = GetScreenWidth() - width / 2;
   }
 }
 
 void Bat::HandleCollisionWithBall(Ball &ball) {
   if (ball.IsNotMoving()) {
-    ball.SetPosition({x + BAT_WIDTH / 2, GSH - BRICK_HEIGHT});
+    ball.SetPosition({x + BAT_WIDTH / 2, static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)});
     return;
   }
   Vector2 speed = ball.GetSpeed();

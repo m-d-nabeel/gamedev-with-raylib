@@ -6,14 +6,14 @@ class Ball {
 public:
   Ball();
   void Update();
-  void Draw();
+  void Draw() const;
   void SetPosition(Vector2 position);
   void SetSpeed(Vector2 speed);
-  Vector2 GetSpeed();
-  Vector2 GetPosition();
-  float GetRadius();
-  bool IsNotMoving();
-  bool IsCollidingWithBottomWall();
+  Vector2 GetSpeed() const;
+  Vector2 GetPosition() const;
+  float GetRadius() const;
+  bool IsNotMoving() const;
+  bool IsCollidingWithBottomWall() const;
 
 private:
   Vector2 position;

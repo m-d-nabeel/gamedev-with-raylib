@@ -1,9 +1,10 @@
-#include "bat.h"
-#include "ball.h"
-#include "constants.h"
+#include "../include/bat.h"
+#include "../include/ball.h"
+#include "../include/constants.h"
 #include <raylib.h>
 
-Bat::Bat() : x(S_WIDTH / 2 - BAT_WIDTH / 2), y(S_HEIGHT - BALL_RADIUS), width(BAT_WIDTH), height(BAT_HEIGHT) {
+Bat::Bat()
+    : x((INIT_SWIDTH - BAT_WIDTH) / 2), y(INIT_SHEIGHT - BALL_RADIUS), width(BAT_WIDTH), height(BAT_HEIGHT) {
   color = DARKBLUE;
 }
 
@@ -31,14 +32,14 @@ void Bat::Move(int direction, Ball &ball) {
     x = -width / 2;
   }
 
-  if (x + width / 2 >= S_WIDTH) {
-    x = S_WIDTH - width / 2;
+  if (x + width / 2 >= INIT_SWIDTH) {
+    x = INIT_SWIDTH - width / 2;
   }
 }
 
 void Bat::HandleCollisionWithBall(Ball &ball) {
   if (ball.IsNotMoving()) {
-    ball.SetPosition({x + BAT_WIDTH / 2, static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)});
+    ball.SetPosition({x + BAT_WIDTH / 2, static_cast<float>(INIT_SHEIGHT - BRICK_HEIGHT)});
     return;
   }
   if (IsCollidingWithBall(ball)) {

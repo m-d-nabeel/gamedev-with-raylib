@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../include/constants.h"
 #include "ball.h"
-#include "constants.h"
 #include "raylib.h"
 class Bat {
 public:

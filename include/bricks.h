@@ -6,6 +6,7 @@
 
 class Bricks {
 public:
+  Bricks();
   Bricks(int brickHorizontalCount, int brickVerticalCount);
   void Update(Ball &ball);
   void Draw();

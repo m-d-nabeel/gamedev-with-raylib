@@ -1,15 +1,20 @@
-#include "bricks.h"
-#include "brick.h"
-#include "constants.h"
+#include "../include/bricks.h"
+#include "../include/brick.h"
+#include "../include/constants.h"
 #include "raymath.h"
 #include <raylib.h>
 
 const Color BRICK_COLORS[] = {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, BROWN};
 
+Bricks::Bricks() : brickHorizontalCount(0), brickVerticalCount(0) {
+  arrBricks = nullptr;
+}
+
 Bricks::Bricks(int hCount, int vCount) : brickHorizontalCount(hCount), brickVerticalCount(vCount) {
-  arrBricks              = new Brick *[brickVerticalCount];
-  const int leftoutSpace = S_WIDTH - (brickHorizontalCount * BRICK_WIDTH + (brickHorizontalCount - 1) * BRICK_PADDING);
-  const int leftPadding  = leftoutSpace / 2;
+  arrBricks = new Brick *[brickVerticalCount];
+  const int leftoutSpace =
+      INIT_SWIDTH - (brickHorizontalCount * BRICK_WIDTH + (brickHorizontalCount - 1) * BRICK_PADDING);
+  const int leftPadding = leftoutSpace / 2;
   for (int i = 0; i < brickVerticalCount; i++) {
     arrBricks[i] = new Brick[brickHorizontalCount];
     for (int j = 0; j < brickHorizontalCount; j++) {

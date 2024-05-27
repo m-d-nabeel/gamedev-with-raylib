@@ -1,5 +1,5 @@
-#include "brick.h"
-#include "constants.h"
+#include "../include/brick.h"
+#include "../include/constants.h"
 #include <raylib.h>
 
 Brick::Brick() {

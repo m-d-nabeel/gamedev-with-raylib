@@ -17,7 +17,7 @@ Bricks::Bricks(int hCount, int vCount) : brickHorizontalCount(hCount), brickVert
   arrBricks   = new Brick *[brickVerticalCount];
   totalBricks = brickHorizontalCount * brickVerticalCount;
   const int leftoutSpace =
-      INIT_SWIDTH - (brickHorizontalCount * BRICK_WIDTH + (brickHorizontalCount - 1) * BRICK_PADDING);
+      GSW - (brickHorizontalCount * BRICK_WIDTH + (brickHorizontalCount - 1) * BRICK_PADDING);
   const int leftPadding = leftoutSpace / 2;
   for (int i = 0; i < brickVerticalCount; i++) {
     arrBricks[i] = new Brick[brickHorizontalCount];

@@ -1,27 +1,26 @@
 #include "../include/ball.h"
 #include "../include/constants.h"
-#include "../include/game.h"
 #include <raylib.h>
 #include <raymath.h>
 
 Ball::Ball() {
-  position = {INIT_SWIDTH / 2, INIT_SHEIGHT - BRICK_HEIGHT};
+  position = {GSW / 2, GSH - BRICK_HEIGHT};
   speed    = {0, 0};
   radius   = 15;
 }
 
 void Ball::Update() {
   position = Vector2Add(position, speed);
-  if (position.x + radius >= INIT_SWIDTH || position.x - radius <= 0) {
+  if (position.x + radius >= GSW || position.x - radius <= 0) {
     speed.x *= -1;
   }
-  if (position.y + radius >= INIT_SHEIGHT || position.y - radius <= 0) {
+  if (position.y + radius >= GSH || position.y - radius <= 0) {
     speed.y *= -1;
   }
 }
 
 bool Ball::IsCollidingWithBottomWall() {
-  return position.y + radius >= INIT_SHEIGHT;
+  return position.y + radius >= GSH;
 }
 
 void Ball::Draw() {

@@ -4,6 +4,7 @@
 #include "bat.h"
 #include "bricks.h"
 #include "constants.h"
+#include "raylib.h"
 
 class Game {
 public:
@@ -12,16 +13,7 @@ public:
   void UpdateGame();
   void DrawGame();
   void HandleKeyboardInput();
-  static inline float GetScreenWidth() {
-    return static_cast<float>(GetScreenWidth());
-  }
-  static inline float GetScreenHeight() {
-    return static_cast<float>(GetScreenHeight());
-  }
-  inline void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0) {
-    float width = MeasureText(text, fontSize);
-    DrawText(text, INIT_SWIDTH / 2 - width / 2, INIT_SHEIGHT / 2 + paddingY, fontSize, color);
-  }
+  static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0);
   ~Game();
 
 private:
@@ -29,6 +21,9 @@ private:
   Bat bat;
   Bricks *bricks;
   GameState gameState;
-  int ScreenWidth;
-  int ScreenHeight;
+  int hBricksCount;
+  int vBricksCount;
+
+public:
+  static bool isFullscreen;
 };

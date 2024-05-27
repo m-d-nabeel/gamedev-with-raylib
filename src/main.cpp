@@ -12,6 +12,11 @@ int main() {
     BeginDrawing();
     game.DrawGame();
     EndDrawing();
+    if (Game::isFullscreen) {
+      ToggleFullscreen();
+      game.ResetGame();
+      Game::isFullscreen = false;
+    }
   }
   return 0;
 }

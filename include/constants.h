@@ -14,5 +14,7 @@ constexpr int BAT_SPEED          = 10;
 constexpr float BAT_WIDTH        = 200.0f;
 constexpr float BAT_HEIGHT       = 20.0f;
 constexpr int SPEEDUP            = 2;
+#define GSW static_cast<float>(GetScreenWidth())
+#define GSH static_cast<float>(GetScreenHeight())
 
 enum GameState { PLAYING, PAUSED, GAME_OVER, GAME_WON };

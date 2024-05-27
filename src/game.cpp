@@ -2,22 +2,18 @@
 #include "raylib.h"
 
 Game::Game() {
-  ScreenWidth  = INIT_SWIDTH;
-  ScreenHeight = INIT_SHEIGHT;
   gameState    = GameState::PLAYING;
-  // int hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
-  // int vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
-  int hBricksCount = 2;
-  int vBricksCount = 2;
-  bricks           = new Bricks(hBricksCount, vBricksCount);
-  bat              = Bat();
-  ball             = Ball();
+  hBricksCount = (GSW + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  vBricksCount = (GSH / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  bricks       = new Bricks(hBricksCount, vBricksCount);
+  bat          = Bat();
+  ball         = Ball();
 }
 
 void Game::ResetGame() {
-  ball = Ball();
-  bricks->Reset();
-  bat = Bat();
+  ball   = Ball();
+  bricks = new Bricks(hBricksCount, vBricksCount);
+  bat    = Bat();
 }
 
 void Game::UpdateGame() {
@@ -75,12 +71,26 @@ void Game::HandleKeyboardInput() {
       gameState = GameState::PLAYING;
     }
   }
-  if (IsKeyPressed(KEY_ESCAPE)) {
-    CloseWindow();
+  if (IsKeyPressed(KEY_F11)) {
+    int monitor = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+    isFullscreen = true;
   }
 }
 
 Game::~Game() {
   delete bricks;
   CloseWindow();
+}
+
+bool Game::isFullscreen = false;
+
+void Game::DrawCenteredText(const char *text, int fontSize, Color color, int paddingY) {
+  float screenWidth  = GetScreenWidth();
+  float screenHeight = GetScreenHeight();
+  float textWidth    = MeasureText(text, fontSize);
+  float textHeight   = fontSize;
+  float posX         = screenWidth / 2 - textWidth / 2;
+  float posY         = screenHeight / 2 - textHeight / 2 + paddingY;
+  DrawText(text, static_cast<int>(posX), static_cast<int>(posY), fontSize, color);
 }

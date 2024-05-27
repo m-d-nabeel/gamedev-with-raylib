@@ -6,10 +6,10 @@
 
 Bat::Bat() {
   color  = DARKBLUE;
-  x      = (INIT_SWIDTH - BAT_WIDTH) / 2;
+  x      = (GSW - BAT_WIDTH) / 2;
   width  = BAT_WIDTH;
   height = BAT_HEIGHT;
-  y      = INIT_SHEIGHT - BALL_RADIUS;
+  y      = GSH - BALL_RADIUS;
 }
 
 void Bat::Draw() {
@@ -37,14 +37,14 @@ void Bat::Move(int direction, Ball &ball) {
     x = -width / 2;
   }
 
-  if (x + width / 2 >= INIT_SWIDTH) {
-    x = INIT_SWIDTH - width / 2;
+  if (x + width / 2 >= GSW) {
+    x = GSW - width / 2;
   }
 }
 
 void Bat::HandleCollisionWithBall(Ball &ball) {
   if (ball.IsNotMoving()) {
-    ball.SetPosition({x + BAT_WIDTH / 2, INIT_SHEIGHT - BRICK_HEIGHT});
+    ball.SetPosition({x + BAT_WIDTH / 2, GSH - BRICK_HEIGHT});
     return;
   }
   Vector2 speed = ball.GetSpeed();

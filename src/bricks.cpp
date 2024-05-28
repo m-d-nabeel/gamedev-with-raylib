@@ -5,7 +5,7 @@
 #include <vector>
 #include <raylib.h>
 
-const Color BRICK_COLORS[] = {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, BROWN};
+const Color BRICK_COLORS[] = {BLUE, VIOLET, BROWN, DARKGRAY, GOLD, MAROON, BEIGE};
 
 Bricks::Bricks() {
   bHCount     = 0;

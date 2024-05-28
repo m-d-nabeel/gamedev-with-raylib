@@ -4,9 +4,10 @@
 #include <raymath.h>
 
 Ball::Ball() {
-  position = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
-  speed    = {0, 0};
-  radius   = 15;
+  position     = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
+  speed        = {0, 0};
+  defaultSpeed = 10.0f;
+  radius       = 15;
 }
 
 void Ball::Update() {
@@ -49,4 +50,12 @@ float Ball::GetRadius() const {
 
 Vector2 Ball::GetSpeed() const {
   return speed;
+}
+
+float Ball::GetDefaultSpeed() const {
+  return defaultSpeed;
+}
+
+void Ball::SetDefaultSpeed(float speed) {
+  defaultSpeed = speed;
 }

@@ -57,7 +57,7 @@ void Bat::HandleCollisionWithBall(Ball &ball) {
       speed.x += movement * SPEEDUP;
     }
     Vector2 direction = Vector2Normalize(speed);
-    ball.SetSpeed(Vector2Scale(direction, BALL_SPEED));
+    ball.SetSpeed(Vector2Scale(direction, ball.GetDefaultSpeed()));
   }
 }
 
@@ -67,7 +67,7 @@ void Bat::HandleKeyboardInput(Ball &ball, GameState &gameState) {
   }
   if (IsKeyPressed(KEY_ENTER) && ball.IsNotMoving() && IsCollidingWithBall(ball)) {
     gameState = PLAYING;
-    ball.SetSpeed({1, -1 * BALL_SPEED});
+    ball.SetSpeed({0, -ball.GetDefaultSpeed()});
   }
   if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_FOUR) || IsKeyDown(KEY_A)) {
     movement = -1;

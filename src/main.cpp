@@ -1,3 +1,4 @@
+#include "../include/constants.h"
 #include "../include/game.h"
 #include <raylib.h>
 
@@ -6,8 +7,10 @@ int main() {
   SetTargetFPS(FRAME_RATE);
   Game game = Game();
   game.ResetGame();
+
   while (!WindowShouldClose()) {
     game.LoopLogic();
   }
+  CloseWindow();
   return 0;
 }

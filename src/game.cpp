@@ -1,8 +1,9 @@
 #include "../include/game.h"
+#include "../include/constants.h"
 #include "raylib.h"
 
 Game::Game() {
-  gameState    = GameState::PLAYING;
+  gameState    = PLAYING;
   hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
   vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
   bricks       = Bricks();
@@ -18,15 +19,15 @@ void Game::ResetGame() {
 }
 
 void Game::UpdateGame() {
-  if (gameState == GameState::GAME_OVER || gameState == GameState::PAUSED) {
+  if (gameState == GAME_OVER || gameState == PAUSED || gameState == GAME_WON) {
     return;
   }
   if (ball.IsCollidingWithBottomWall()) {
-    gameState = GameState::GAME_OVER;
+    gameState = GAME_OVER;
     return;
   }
   if (bricks.IsAllBricksDestroyed()) {
-    gameState = GameState::GAME_WON;
+    gameState = GAME_WON;
     return;
   }
   bat.HandleKeyboardInput(ball, gameState);
@@ -37,8 +38,7 @@ void Game::UpdateGame() {
 
 void Game::DrawGame() {
   ClearBackground(BLACK);
-
-  if (gameState == GameState::PLAYING) {
+  if (gameState == PLAYING) {
     DrawCenteredText("Press SPACE to pause ", 20, LIGHTGRAY, 40);
   } else {
     DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
@@ -49,13 +49,11 @@ void Game::DrawGame() {
   ball.Draw();
   bat.Draw();
 
-  if (gameState == GameState::PAUSED) {
+  if (gameState == PAUSED) {
     DrawCenteredText("Paused", 50, BLUE, -50);
-  } else if (gameState == GameState::GAME_OVER) {
-    ball.SetSpeed({0, 0});
+  } else if (gameState == GAME_OVER) {
     DrawCenteredText("Game Over", 60, RED, -60);
-  } else if (gameState == GameState::GAME_WON) {
-    ball.SetSpeed({0, 0});
+  } else if (gameState == GAME_WON) {
     DrawCenteredText("You Won", 60, GREEN, -60);
   }
 }
@@ -63,13 +61,13 @@ void Game::DrawGame() {
 void Game::HandleKeyboardInput() {
   if (IsKeyPressed(KEY_R)) {
     ResetGame();
-    gameState = GameState::PLAYING;
+    gameState = PLAYING;
   }
   if (IsKeyPressed(KEY_SPACE)) {
-    if (gameState == GameState::PLAYING) {
-      gameState = GameState::PAUSED;
-    } else if (gameState == GameState::PAUSED) {
-      gameState = GameState::PLAYING;
+    if (gameState == PLAYING) {
+      gameState = PAUSED;
+    } else if (gameState == PAUSED) {
+      gameState = PLAYING;
     }
   }
   if (IsKeyPressed(KEY_F11)) {
@@ -94,6 +92,7 @@ void Game::LoopLogic() {
     ToggleFullscreen();
     isFullScreen = false;
     RedrawBricks();
+    ball.SetDefaultSpeed(ball.GetDefaultSpeed() * 1.25f);
   }
 }
 

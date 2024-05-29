@@ -23,4 +23,5 @@ private:
   int bHCount;
   int bVCount;
   int totalBricks;
+  Sound brickBreakSound;
 };

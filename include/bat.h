@@ -22,4 +22,5 @@ private:
   float height;
   int movement;
   Color color;
+  Sound hitSound;
 };

@@ -4,18 +4,26 @@
 #include <raymath.h>
 
 Ball::Ball() {
-  position     = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
-  speed        = {0, 0};
-  defaultSpeed = 10.0f;
-  radius       = 15;
+  position       = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
+  speed          = {0, 0};
+  defaultSpeed   = 10.0f;
+  radius         = 15;
+  texture        = LoadTexture("assets/Balls/Ball 7.png");
+  texture.height = radius * 2;
+  texture.width  = radius * 2;
+  wallHitSound   = LoadSound("assets/Sounds/wallHit.wav");
+  gameOverSound  = LoadSound("assets/Sounds/gameOver.wav");
+  ballHitPower   = 10;
 }
 
 void Ball::Update() {
   position = Vector2Add(position, speed);
   if (position.x + radius >= GetScreenWidth() || position.x - radius <= 0) {
+    PlaySound(wallHitSound);
     speed.x *= -1;
   }
   if (position.y + radius >= GetScreenHeight() || position.y - radius - TOP_PADDING <= 0) {
+    PlaySound(wallHitSound);
     speed.y *= -1;
   }
 }
@@ -26,11 +34,17 @@ void Ball::Reset() {
 }
 
 bool Ball::IsCollidingWithBottomWall() const {
-  return position.y + radius >= GetScreenHeight();
+  if (position.y + radius >= GetScreenHeight()) {
+    PlaySound(gameOverSound);
+    return true;
+  };
+  return false;
 }
 
 void Ball::Draw() const {
-  DrawCircleV(position, radius, DARKBROWN);
+  // add a little hollow circle to the ball
+  DrawCircleGradient(position.x, position.y, 2 * radius, BLUE, {255, 255, 255, 0});
+  DrawTextureV(texture, Vector2Subtract(position, {radius, radius}), WHITE);
 }
 
 bool Ball::IsNotMoving() const {

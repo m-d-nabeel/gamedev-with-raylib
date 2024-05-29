@@ -8,10 +8,11 @@
 const Color BRICK_COLORS[] = {BLUE, VIOLET, BROWN, DARKGRAY, GOLD, MAROON, BEIGE};
 
 Bricks::Bricks() {
-  bHCount     = 0;
-  bVCount     = 0;
-  totalBricks = 0;
-  arrBricks   = std::vector<std::vector<Brick>>();
+  bHCount         = 0;
+  bVCount         = 0;
+  totalBricks     = 0;
+  arrBricks       = std::vector<std::vector<Brick>>();
+  brickBreakSound = LoadSound("assets/Sounds/brickBreak.wav");
 }
 
 Bricks::Bricks(int hCount, int vCount) : bHCount(hCount), bVCount(vCount) {
@@ -19,6 +20,8 @@ Bricks::Bricks(int hCount, int vCount) : bHCount(hCount), bVCount(vCount) {
   totalBricks            = bHCount * bVCount;
   const int leftoutSpace = GetScreenWidth() - (bHCount * BRICK_WIDTH + (bHCount - 1) * BRICK_PADDING);
   const int leftPadding  = leftoutSpace / 2;
+  brickBreakSound        = LoadSound("assets/Sounds/brickBreak.wav");
+
   for (int i = 0; i < bVCount; i++) {
     for (int j = 0; j < bHCount; j++) {
       arrBricks[i][j].SetPosition(leftPadding + j * (BRICK_WIDTH + BRICK_PADDING), i * (BRICK_HEIGHT + BRICK_PADDING) + TOP_PADDING);
@@ -53,9 +56,10 @@ void Bricks::Update(Ball &ball, unsigned int &score) {
       if (arrBricks[i][j].IsVisible()) {
         if (arrBricks[i][j].IsCollidingWithBall(ball)) {
           ball.SetSpeed(Vector2Reflect(ball.GetSpeed(), {0, 1}));
-          arrBricks[i][j].Break();
+          arrBricks[i][j].SetVisible(false);
           totalBricks--;
           score += 10;
+          PlaySound(brickBreakSound);
         }
         arrBricks[i][j].Draw();
       }

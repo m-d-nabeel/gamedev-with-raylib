@@ -61,8 +61,7 @@ void Game::UpdateGame() {
 }
 
 void Game::DrawGame() {
-  ClearBackground(BLACK);
-
+  ClearBackground(Color{3, 7, 18, 0});
   // GAMEPLAY INFORMATION DISPLAY
   DrawRectangleGradientV(0, 0, GetScreenWidth(), TOP_PADDING, Color{17, 24, 39, 255}, BLACK);
   const char *scoreText = TextFormat("Score: %i", score);

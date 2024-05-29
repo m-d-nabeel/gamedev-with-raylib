@@ -13,7 +13,6 @@ public:
   Color GetColor();
   void SetVisible(bool visible);
   bool IsVisible();
-  void Break();
   float GetX();
   float GetY();
   bool IsCollidingWithBall(Ball &ball);
@@ -27,5 +26,4 @@ private:
   bool visible;
   Texture texture;
   BrickType type;
-  Sound breakSound;
 };

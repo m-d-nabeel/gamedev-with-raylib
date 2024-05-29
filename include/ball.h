@@ -23,4 +23,8 @@ private:
   Vector2 speed;
   float radius;
   float defaultSpeed;
+  Texture2D texture;
+  Sound wallHitSound;
+  Sound gameOverSound;
+  unsigned int ballHitPower;
 };

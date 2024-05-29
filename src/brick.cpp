@@ -41,7 +41,7 @@ Brick::Brick() {
   ImageCrop(&brickImage, Rectangle{0, 0, width, height});
   texture = LoadTextureFromImage(brickImage);
   UnloadImage(brickImage);
-  breakSound = LoadSound("assets/Sounds/brickBreak.wav");
+  
 }
 
 void Brick::Draw() {
@@ -60,11 +60,6 @@ void Brick::SetColor(Color c) {
 bool Brick::IsCollidingWithBall(Ball &ball) {
   Rectangle brickRectangle = {x, y, BRICK_WIDTH, BRICK_HEIGHT};
   return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, brickRectangle);
-}
-
-void Brick::Break() {
-  visible = false;
-  PlaySound(breakSound);
 }
 
 void Brick::SetVisible(bool visible) {

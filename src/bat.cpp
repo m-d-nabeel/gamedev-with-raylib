@@ -5,11 +5,13 @@
 #include <raylib.h>
 
 Bat::Bat() {
-  color  = DARKBLUE;
-  x      = (GetScreenWidth() - BAT_WIDTH) / 2;
-  width  = BAT_WIDTH;
-  height = BAT_HEIGHT;
-  y      = GetScreenHeight() - BALL_RADIUS;
+  color    = DARKBLUE;
+  x        = (GetScreenWidth() - BAT_WIDTH) / 2;
+  width    = BAT_WIDTH;
+  height   = BAT_HEIGHT;
+  y        = GetScreenHeight() - BALL_RADIUS;
+  movement = 0;
+  hitSound = LoadSound("assets/Sounds/batHit.wav");
 }
 
 void Bat::Reset() {
@@ -24,7 +26,11 @@ void Bat::Draw() {
 
 bool Bat::IsCollidingWithBall(Ball &ball) {
   Rectangle batRectangle = {x, y, BAT_WIDTH + 10.0f, BAT_HEIGHT + 10.0f};
-  return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, batRectangle);
+  if (CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, batRectangle)) {
+    PlaySound(hitSound);
+    return true;
+  }
+  return false;
 }
 
 void Bat::Move(int direction, Ball &ball) {

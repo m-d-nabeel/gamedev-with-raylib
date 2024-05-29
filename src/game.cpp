@@ -2,22 +2,25 @@
 #include "../include/constants.h"
 #include "raylib.h"
 
+constexpr bool DEB_ENV = false;
+
 Game::Game() {
-  gameState           = PLAYING;
-  hBricksCount        = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
-  vBricksCount        = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
-  bricks              = Bricks(hBricksCount, vBricksCount);
-  bat                 = Bat();
-  ball                = Ball();
-  isFullScreen        = false;
-  score               = 0;
-  lives               = 3;
-  level               = 1;
-  powerUpType         = NONE;
-  powerUpState        = INACTIVE;
-  heartTexture        = LoadTexture("assets/heart.png");
-  heartTexture.width  = 25;
-  heartTexture.height = 25;
+  gameState            = PLAYING;
+  hBricksCount         = DEB_ENV ? 1 : (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  vBricksCount         = DEB_ENV ? 1 : (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  bricks               = Bricks(hBricksCount, vBricksCount);
+  bat                  = Bat();
+  ball                 = Ball();
+  isFullScreen         = false;
+  score                = 0;
+  lives                = 3;
+  level                = 1;
+  powerUpType          = NONE;
+  powerUpState         = INACTIVE;
+  heartTexture         = LoadTexture("assets/heart.png");
+  heartTexture.width   = 25;
+  heartTexture.height  = 25;
+  allBricksBrokenSound = LoadSound("assets/Sounds/allBricksBrokenSound.wav");
 }
 
 void Game::ResetGame() {
@@ -47,6 +50,7 @@ void Game::UpdateGame() {
     return;
   }
   if (bricks.IsAllBricksDestroyed()) {
+    PlaySound(allBricksBrokenSound);
     gameState = GAME_WON;
     return;
   }

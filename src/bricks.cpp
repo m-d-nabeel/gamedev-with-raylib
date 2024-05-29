@@ -53,7 +53,7 @@ void Bricks::Update(Ball &ball, unsigned int &score) {
       if (arrBricks[i][j].IsVisible()) {
         if (arrBricks[i][j].IsCollidingWithBall(ball)) {
           ball.SetSpeed(Vector2Reflect(ball.GetSpeed(), {0, 1}));
-          arrBricks[i][j].SetVisible(false);
+          arrBricks[i][j].Break();
           totalBricks--;
           score += 10;
         }
@@ -64,18 +64,14 @@ void Bricks::Update(Ball &ball, unsigned int &score) {
 }
 
 void Bricks::RenderForCurrWindow() {
-  std::vector<std::vector<Brick>> newArrBricks = std::vector<std::vector<Brick>>(bVCount, std::vector<Brick>(bHCount));
-  totalBricks                                  = bHCount * bVCount;
-  const int leftoutSpace                       = GetScreenWidth() - (bHCount * BRICK_WIDTH + (bHCount - 1) * BRICK_PADDING);
-  const int leftPadding                        = leftoutSpace / 2;
+  totalBricks            = bHCount * bVCount;
+  const int leftoutSpace = GetScreenWidth() - (bHCount * BRICK_WIDTH + (bHCount - 1) * BRICK_PADDING);
+  const int leftPadding  = leftoutSpace / 2;
   for (int i = 0; i < bVCount; i++) {
     for (int j = 0; j < bHCount; j++) {
-      newArrBricks[i][j].SetPosition(leftPadding + j * (BRICK_WIDTH + BRICK_PADDING), i * (BRICK_HEIGHT + BRICK_PADDING) + TOP_PADDING);
-      newArrBricks[i][j].SetColor(arrBricks[i][j].GetColor());
-      newArrBricks[i][j].SetVisible(arrBricks[i][j].IsVisible());
+      arrBricks[i][j].SetPosition(leftPadding + j * (BRICK_WIDTH + BRICK_PADDING), i * (BRICK_HEIGHT + BRICK_PADDING) + TOP_PADDING);
     }
   }
-  arrBricks = newArrBricks;
 }
 
 bool Bricks::IsAllBricksDestroyed() {

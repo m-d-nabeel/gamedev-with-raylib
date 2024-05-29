@@ -33,4 +33,5 @@ private:
   PowerUpType powerUpType;
   PowerUpState powerUpState;
   PowerUpDuration powerUpDuration;
+  Sound allBricksBrokenSound;
 };

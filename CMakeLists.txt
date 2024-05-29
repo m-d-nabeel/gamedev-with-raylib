@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 project(raylib-cpp-gamedev)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 include("/home/disable/vcpkg/scripts/buildsystems/vcpkg.cmake")
 find_package(raylib CONFIG REQUIRED)
 file(GLOB SOURCES "src/**.cpp")

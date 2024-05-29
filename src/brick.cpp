@@ -4,7 +4,7 @@
 #include <vector>
 #include <raylib.h>
 
-std::vector<std::string> bricks = {
+const std::vector<std::string> bricks = {
     "assets/Bricks/Brick 1 - 128x128.png",
     "assets/Bricks/Brick 2 - 128x128.png",
     "assets/Bricks/Brick 3 - 128x128.png",
@@ -29,48 +29,19 @@ std::vector<std::string> bricks = {
     "assets/Bricks/Brick 22 - 128x128.png",
     "assets/Bricks/Brick 23 - 128x128.png",
 };
-std::vector<std::string> grass = {
-    "assets/Grass/Grass 1 - 128x128.png",
-    "assets/Grass/Grass 2 - 128x128.png",
-    "assets/Grass/Grass 3 - 128x128.png",
-    "assets/Grass/Grass 4 - 128x128.png",
-    "assets/Grass/Grass 5 - 128x128.png",
-    "assets/Grass/Grass 6 - 128x128.png",
-    "assets/Grass/Grass 7 - 128x128.png",
-    "assets/Grass/Grass 8 - 128x128.png",
-    "assets/Grass/Grass 9 - 128x128.png",
-    "assets/Grass/Grass 10 - 128x128.png",
-    "assets/Grass/Grass 11 - 128x128.png",
-    "assets/Grass/Grass 12 - 128x128.png",
-    "assets/Grass/Grass 13 - 128x128.png",
-    "assets/Grass/Grass 14 - 128x128.png",
-    "assets/Grass/Grass 15 - 128x128.png",
-    "assets/Grass/Grass 16 - 128x128.png",
-    "assets/Grass/Grass 17 - 128x128.png",
-    "assets/Grass/Grass 18 - 128x128.png",
-    "assets/Grass/Grass 19 - 128x128.png",
-    "assets/Grass/Grass 20 - 128x128.png",
-    "assets/Grass/Grass 21 - 128x128.png",
-    "assets/Grass/Grass 22 - 128x128.png",
-    "assets/Grass/Grass 23 - 128x128.png",
-};
 
 Brick::Brick() {
-  width   = BRICK_WIDTH;
-  height  = BRICK_HEIGHT;
-  x       = 100;
-  y       = 100;
-  color   = BLANK;
-  visible = true;
-  // Image brickImage = LoadImage(bricks[GetRandomValue(0, bricks.size())].c_str());
-  // ImageCrop(&brickImage, Rectangle{0, 0, width, height});
-  // texture = LoadTextureFromImage(brickImage);
-  // UnloadImage(brickImage);
-
-  Image grassImage = LoadImage(grass[GetRandomValue(0, grass.size())].c_str());
-  ImageCrop(&grassImage, Rectangle{0, 0, width, height});
-  texture = LoadTextureFromImage(grassImage);
-  UnloadImage(grassImage);
+  width            = BRICK_WIDTH;
+  height           = BRICK_HEIGHT;
+  x                = 100;
+  y                = 100;
+  color            = BLANK;
+  visible          = true;
+  Image brickImage = LoadImage(bricks[GetRandomValue(0, bricks.size() - 1)].c_str());
+  ImageCrop(&brickImage, Rectangle{0, 0, width, height});
+  texture = LoadTextureFromImage(brickImage);
+  UnloadImage(brickImage);
+  breakSound = LoadSound("assets/Sounds/brickBreak.wav");
 }
 
 void Brick::Draw() {
@@ -89,6 +60,11 @@ void Brick::SetColor(Color c) {
 bool Brick::IsCollidingWithBall(Ball &ball) {
   Rectangle brickRectangle = {x, y, BRICK_WIDTH, BRICK_HEIGHT};
   return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, brickRectangle);
+}
+
+void Brick::Break() {
+  visible = false;
+  PlaySound(breakSound);
 }
 
 void Brick::SetVisible(bool visible) {

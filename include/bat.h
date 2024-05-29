@@ -13,6 +13,7 @@ public:
   void Move(int direction, Ball &ball);
   void HandleKeyboardInput(Ball &ball, GameState &gameState);
   int GetMovement();
+  void Reset();
 
 private:
   float x;

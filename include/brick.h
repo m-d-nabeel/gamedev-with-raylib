@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ball.h"
+#include "constants.h"
 #include "raylib.h"
 
 class Brick {
@@ -9,6 +10,7 @@ public:
   void Draw();
   void SetPosition(float x, float y);
   void SetColor(Color c);
+  Color GetColor();
   void SetVisible(bool visible);
   bool IsVisible();
   float GetX();
@@ -22,4 +24,6 @@ private:
   float height;
   Color color;
   bool visible;
+  Texture texture;
+  BrickType type;
 };

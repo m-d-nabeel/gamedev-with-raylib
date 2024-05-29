@@ -6,10 +6,15 @@
 
 Bat::Bat() {
   color  = DARKBLUE;
-  x      = (INIT_SWIDTH - BAT_WIDTH) / 2;
+  x      = (GetScreenWidth() - BAT_WIDTH) / 2;
   width  = BAT_WIDTH;
   height = BAT_HEIGHT;
-  y      = INIT_SHEIGHT - BALL_RADIUS;
+  y      = GetScreenHeight() - BALL_RADIUS;
+}
+
+void Bat::Reset() {
+  x        = (GetScreenWidth() - BAT_WIDTH) / 2;
+  movement = 0;
 }
 
 void Bat::Draw() {
@@ -18,7 +23,7 @@ void Bat::Draw() {
 }
 
 bool Bat::IsCollidingWithBall(Ball &ball) {
-  Rectangle batRectangle = {x, y, BAT_WIDTH + 0.5f, BAT_HEIGHT + 0.5f};
+  Rectangle batRectangle = {x, y, BAT_WIDTH + 10.0f, BAT_HEIGHT + 10.0f};
   return CheckCollisionCircleRec(ball.GetPosition(), BALL_RADIUS, batRectangle);
 }
 
@@ -37,14 +42,14 @@ void Bat::Move(int direction, Ball &ball) {
     x = -width / 2;
   }
 
-  if (x + width / 2 >= INIT_SWIDTH) {
-    x = INIT_SWIDTH - width / 2;
+  if (x + width / 2 >= GetScreenWidth()) {
+    x = GetScreenWidth() - width / 2;
   }
 }
 
 void Bat::HandleCollisionWithBall(Ball &ball) {
   if (ball.IsNotMoving()) {
-    ball.SetPosition({x + BAT_WIDTH / 2, INIT_SHEIGHT - BRICK_HEIGHT});
+    ball.SetPosition({x + BAT_WIDTH / 2, static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)});
     return;
   }
   Vector2 speed = ball.GetSpeed();
@@ -57,7 +62,7 @@ void Bat::HandleCollisionWithBall(Ball &ball) {
       speed.x += movement * SPEEDUP;
     }
     Vector2 direction = Vector2Normalize(speed);
-    ball.SetSpeed(Vector2Scale(direction, BALL_SPEED));
+    ball.SetSpeed(Vector2Scale(direction, ball.GetDefaultSpeed()));
   }
 }
 
@@ -67,7 +72,7 @@ void Bat::HandleKeyboardInput(Ball &ball, GameState &gameState) {
   }
   if (IsKeyPressed(KEY_ENTER) && ball.IsNotMoving() && IsCollidingWithBall(ball)) {
     gameState = PLAYING;
-    ball.SetSpeed({1, -1 * BALL_SPEED});
+    ball.SetSpeed({0, -ball.GetDefaultSpeed()});
   }
   if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_FOUR) || IsKeyDown(KEY_A)) {
     movement = -1;

@@ -4,31 +4,33 @@
 #include "bat.h"
 #include "bricks.h"
 #include "constants.h"
+#include "raylib.h"
 
 class Game {
 public:
   Game();
+  void LoopLogic();
   void ResetGame();
   void UpdateGame();
   void DrawGame();
   void HandleKeyboardInput();
-  static inline float GetScreenWidth() {
-    return static_cast<float>(GetScreenWidth());
-  }
-  static inline float GetScreenHeight() {
-    return static_cast<float>(GetScreenHeight());
-  }
-  inline void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0) {
-    float width = MeasureText(text, fontSize);
-    DrawText(text, INIT_SWIDTH / 2 - width / 2, INIT_SHEIGHT / 2 + paddingY, fontSize, color);
-  }
-  ~Game();
+  void RedrawBricks();
+  static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0);
+  ~Game() = default;
 
 private:
   Ball ball;
   Bat bat;
-  Bricks *bricks;
+  Bricks bricks;
   GameState gameState;
-  int ScreenWidth;
-  int ScreenHeight;
+  bool isFullScreen;
+  unsigned int hBricksCount;
+  unsigned int vBricksCount;
+  unsigned int score;
+  unsigned int lives;
+  unsigned int level;
+  Texture2D heartTexture;
+  PowerUpType powerUpType;
+  PowerUpState powerUpState;
+  PowerUpDuration powerUpDuration;
 };

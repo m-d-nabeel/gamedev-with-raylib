@@ -4,19 +4,23 @@
 #include "brick.h"
 #include <raylib.h>
 
+#include <memory>
+#include <vector>
+
 class Bricks {
 public:
   Bricks();
-  Bricks(int brickHorizontalCount, int brickVerticalCount);
-  void Update(Ball &ball);
+  Bricks(int bHCount, int bVCount);
+  void Update(Ball &ball, unsigned int &score);
   void Draw();
-  void Reset();
+  void RenderForCurrWindow();
   bool IsAllBricksDestroyed();
-  ~Bricks();
+  void Reset();
+  ~Bricks() = default;
 
 private:
-  Brick **arrBricks;
-  int brickHorizontalCount;
-  int brickVerticalCount;
+  std::vector<std::vector<Brick>> arrBricks;
+  int bHCount;
+  int bVCount;
   int totalBricks;
 };

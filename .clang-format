@@ -1,5 +1,5 @@
 BasedOnStyle: LLVM
-ColumnLimit: 120
+ColumnLimit: 150
 UseTab: Never
 TabWidth: 2
 AllowShortFunctionsOnASingleLine: None

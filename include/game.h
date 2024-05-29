@@ -23,7 +23,14 @@ private:
   Bat bat;
   Bricks bricks;
   GameState gameState;
-  int hBricksCount;
-  int vBricksCount;
   bool isFullScreen;
+  unsigned int hBricksCount;
+  unsigned int vBricksCount;
+  unsigned int score;
+  unsigned int lives;
+  unsigned int level;
+  Texture2D heartTexture;
+  PowerUpType powerUpType;
+  PowerUpState powerUpState;
+  PowerUpDuration powerUpDuration;
 };

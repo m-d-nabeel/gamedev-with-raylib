@@ -1,7 +1,6 @@
 #pragma once
 
 #include "raylib.h"
-#include <chrono>
 
 constexpr int FRAME_RATE         = 60;
 constexpr float INIT_SWIDTH      = 1200.0f;
@@ -17,6 +16,7 @@ constexpr float BAT_WIDTH        = 200.0f;
 constexpr float BAT_HEIGHT       = 20.0f;
 constexpr int SPEEDUP            = 2;
 constexpr int BORDER_THICKNESS   = 10;
+constexpr int TOP_PADDING        = 50;
 
 inline float GetScreenWidthFloat() {
   return static_cast<float>(GetScreenWidth());
@@ -25,9 +25,32 @@ inline float GetScreenHeightFloat() {
   return static_cast<float>(GetScreenHeight());
 }
 
-enum GameState { PLAYING, PAUSED, GAME_OVER, GAME_WON };
-enum ScreenZoom { DEFAULT, MINIMIZED, MAXIMIZED };
-enum BrickType { NORMAL, TOUGH, UNBREAKABLE };
-enum PowerUpType { SPEED_UP, SPEED_DOWN, SIZE_UP, SIZE_DOWN, MULTI_BALL, NONE };
-enum PowerUpState { ACTIVE, INACTIVE };
-enum PowerUpDuration { SHORT, LONG };
+enum GameState {
+  PLAYING,
+  PAUSED,
+  GAME_OVER,
+  GAME_WON,
+  LEVEL_COMPLETE,
+  LIVE_LOST,
+};
+enum BrickType {
+  NORMAL,
+  TOUGH,
+  UNBREAKABLE,
+};
+enum PowerUpType {
+  SPEED_UP,
+  SPEED_DOWN,
+  SIZE_UP,
+  SIZE_DOWN,
+  MULTI_BALL,
+  NONE,
+};
+enum PowerUpState {
+  ACTIVE,
+  INACTIVE,
+};
+enum PowerUpDuration {
+  SHORT = 50,
+  LONG  = 100,
+};

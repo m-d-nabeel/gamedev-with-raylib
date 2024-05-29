@@ -15,9 +15,14 @@ void Ball::Update() {
   if (position.x + radius >= GetScreenWidth() || position.x - radius <= 0) {
     speed.x *= -1;
   }
-  if (position.y + radius >= GetScreenHeight() || position.y - radius <= 0) {
+  if (position.y + radius >= GetScreenHeight() || position.y - radius - TOP_PADDING <= 0) {
     speed.y *= -1;
   }
+}
+
+void Ball::Reset() {
+  position = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
+  speed    = {0, 0};
 }
 
 bool Ball::IsCollidingWithBottomWall() const {

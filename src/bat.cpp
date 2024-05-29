@@ -12,6 +12,11 @@ Bat::Bat() {
   y      = GetScreenHeight() - BALL_RADIUS;
 }
 
+void Bat::Reset() {
+  x        = (GetScreenWidth() - BAT_WIDTH) / 2;
+  movement = 0;
+}
+
 void Bat::Draw() {
   Rectangle rect = {x, y, width, height};
   DrawRectangleRounded(rect, 0.5, 5, color);

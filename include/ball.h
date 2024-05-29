@@ -16,6 +16,7 @@ public:
   float GetRadius() const;
   float GetDefaultSpeed() const;
   void SetDefaultSpeed(float speed);
+  void Reset();
 
 private:
   Vector2 position;

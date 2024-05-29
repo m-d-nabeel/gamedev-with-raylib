@@ -3,19 +3,32 @@
 #include "raylib.h"
 
 Game::Game() {
-  gameState    = PLAYING;
-  hBricksCount = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
-  vBricksCount = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
-  bricks       = Bricks();
-  bat          = Bat();
-  ball         = Ball();
-  isFullScreen = false;
+  gameState           = PLAYING;
+  hBricksCount        = (INIT_SWIDTH + BRICK_PADDING) / (BRICK_WIDTH + BRICK_PADDING);
+  vBricksCount        = (INIT_SHEIGHT / 2) / (BRICK_HEIGHT + BRICK_PADDING);
+  bricks              = Bricks(hBricksCount, vBricksCount);
+  bat                 = Bat();
+  ball                = Ball();
+  isFullScreen        = false;
+  score               = 0;
+  lives               = 3;
+  level               = 1;
+  powerUpType         = NONE;
+  powerUpState        = INACTIVE;
+  heartTexture        = LoadTexture("assets/heart.png");
+  heartTexture.width  = 25;
+  heartTexture.height = 25;
 }
 
 void Game::ResetGame() {
-  ball   = Ball();
-  bricks = Bricks(hBricksCount, vBricksCount);
-  bat    = Bat();
+  score        = 0;
+  lives        = 3;
+  level        = 1;
+  powerUpType  = NONE;
+  powerUpState = INACTIVE;
+  ball.Reset();
+  bat.Reset();
+  bricks.Reset();
 }
 
 void Game::UpdateGame() {
@@ -23,7 +36,14 @@ void Game::UpdateGame() {
     return;
   }
   if (ball.IsCollidingWithBottomWall()) {
-    gameState = GAME_OVER;
+    lives--;
+    gameState = LIVE_LOST;
+    if (lives == 0) {
+      gameState = GAME_OVER;
+      return;
+    }
+    ball.Reset();
+    bat.Reset();
     return;
   }
   if (bricks.IsAllBricksDestroyed()) {
@@ -31,16 +51,27 @@ void Game::UpdateGame() {
     return;
   }
   bat.HandleKeyboardInput(ball, gameState);
-  bricks.Update(ball);
+  bricks.Update(ball, score);
   ball.Update();
   bat.HandleCollisionWithBall(ball);
 }
 
 void Game::DrawGame() {
   ClearBackground(BLACK);
-  if (gameState == PLAYING) {
-    DrawCenteredText("Press SPACE to pause ", 20, LIGHTGRAY, 40);
-  } else {
+
+  // GAMEPLAY INFORMATION DISPLAY
+  DrawRectangleGradientV(0, 0, GetScreenWidth(), TOP_PADDING, Color{17, 24, 39, 255}, BLACK);
+  const char *scoreText = TextFormat("Score: %i", score);
+  const char *levelText = TextFormat("Level: %i", level);
+  const int fontSize    = 20;
+  DrawText(scoreText, GetScreenWidth() / 2 - MeasureText(scoreText, fontSize) / 2 - 10, 10, fontSize, GRAY);
+  DrawText(levelText, 0, 10, fontSize, GRAY);
+  for (int i = 0; i < lives; i++) {
+    DrawTexture(heartTexture, GetScreenWidth() - 30 - 30 * i, 10, WHITE);
+  }
+  // END OF GAMEPLAY INFORMATION DISPLAY
+
+  if (gameState != PLAYING && gameState != LIVE_LOST) {
     DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
     DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
   }
@@ -49,12 +80,26 @@ void Game::DrawGame() {
   ball.Draw();
   bat.Draw();
 
-  if (gameState == PAUSED) {
+  switch (gameState) {
+  case PLAYING:
+    DrawCenteredText("Press SPACE to pause ", 20, GRAY, 40);
+    break;
+  case PAUSED:
     DrawCenteredText("Paused", 50, BLUE, -50);
-  } else if (gameState == GAME_OVER) {
+    break;
+  case GAME_OVER:
     DrawCenteredText("Game Over", 60, RED, -60);
-  } else if (gameState == GAME_WON) {
+    break;
+  case GAME_WON:
     DrawCenteredText("You Won", 60, GREEN, -60);
+    break;
+  case LEVEL_COMPLETE:
+    DrawCenteredText("Level Complete", 50, GREEN, -50);
+    break;
+  case LIVE_LOST:
+    DrawCenteredText("Life Lost", 50, RED, -50);
+    DrawCenteredText("Press ENTER to continue", 20, GRAY, 20);
+    break;
   }
 }
 

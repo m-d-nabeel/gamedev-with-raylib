@@ -11,10 +11,11 @@ class Bricks {
 public:
   Bricks();
   Bricks(int bHCount, int bVCount);
-  void Update(Ball &ball);
+  void Update(Ball &ball, unsigned int &score);
   void Draw();
   void RenderForCurrWindow();
   bool IsAllBricksDestroyed();
+  void Reset();
   ~Bricks() = default;
 
 private:

@@ -1,6 +1,10 @@
 #include "../include/game.h"
 #include "../include/constants.h"
+#include "../include/utils.h"
 #include "raylib.h"
+#include <filesystem>
+#include <fstream>
+#include <string>
 
 constexpr bool DEB_ENV = false;
 
@@ -36,6 +40,7 @@ void Game::ResetGame() {
 
 void Game::UpdateGame() {
   if (gameState == GAME_OVER || gameState == PAUSED || gameState == GAME_WON) {
+    SaveGameProgress();
     return;
   }
   if (ball.IsCollidingWithBottomWall()) {
@@ -158,4 +163,59 @@ void Game::RedrawBricks() {
   ball = Ball();
   bat  = Bat();
   bricks.RenderForCurrWindow();
+}
+
+void Game::SaveGameProgress() {
+  if (std::filesystem::exists("data")) {
+    std::filesystem::path saveDataPath    = "data/savedata.txt";
+    std::filesystem::path oldSaveDataPath = "data/savedata_old.txt";
+    if (std::filesystem::exists(saveDataPath)) {
+      std::filesystem::remove(oldSaveDataPath);
+      std::filesystem::rename(saveDataPath, "data/savedata_old.txt");
+    }
+    std::ofstream saveDataFile(saveDataPath);
+    saveDataFile << score << std::endl;
+    saveDataFile << lives << std::endl;
+    saveDataFile << level << std::endl;
+    saveDataFile << PowerUpTypeToString(powerUpType) << std::endl;
+    saveDataFile << PowerUpStateToString(powerUpState) << std::endl;
+    saveDataFile << "Destroyed Brick Cordinate : " << std::endl;
+    for (int i = 0; i < hBricksCount; i++) {
+      for (int j = 0; j < vBricksCount; j++) {
+        if (bricks.IsBrickDestroyed(i, j)) {
+          saveDataFile << i << " " << j << std::endl;
+        }
+      }
+    }
+    saveDataFile.close();
+  } else {
+    std::filesystem::create_directory("data");
+    SaveGameProgress();
+  }
+}
+
+void Game::LoadGameProgress() {
+  if (std::filesystem::exists("data/savedata.txt")) {
+    std::ifstream saveDataFile("data/savedata.txt");
+    std::string pUpType = "", pUpState = "";
+    saveDataFile >> score;
+    saveDataFile >> lives;
+    saveDataFile >> level;
+    saveDataFile >> pUpType;
+    saveDataFile >> pUpState;
+    powerUpType  = StringToPowerUpType(pUpType);
+    powerUpState = StringToPowerUpState(pUpState);
+    std::string line;
+    // ignore the next line
+    std::getline(saveDataFile, line);
+    while (std::getline(saveDataFile, line)) {
+      while (std::getline(saveDataFile, line)) {
+        int x, y;
+        std::istringstream iss(line);
+        iss >> x >> y;
+        bricks.SetBrickDestroyed(x, y);
+      }
+    }
+    saveDataFile.close();
+  }
 }

@@ -11,7 +11,7 @@ Bat::Bat() {
   height   = BAT_HEIGHT;
   y        = GetScreenHeight() - BALL_RADIUS;
   movement = 0;
-  hitSound = LoadSound("assets/Sounds/batHit.wav");
+  hitSound = LoadSound("assets/Sounds/wallHit.wav");
 }
 
 void Bat::Reset() {

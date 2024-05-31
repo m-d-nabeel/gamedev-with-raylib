@@ -13,6 +13,7 @@ Bricks::Bricks() {
   totalBricks     = 0;
   arrBricks       = std::vector<std::vector<Brick>>();
   brickBreakSound = LoadSound("assets/Sounds/brickBreak.wav");
+  SetSoundVolume(brickBreakSound, 0.5f);
 }
 
 Bricks::Bricks(int hCount, int vCount) : bHCount(hCount), bVCount(vCount) {
@@ -21,6 +22,7 @@ Bricks::Bricks(int hCount, int vCount) : bHCount(hCount), bVCount(vCount) {
   const int leftoutSpace = GetScreenWidth() - (bHCount * BRICK_WIDTH + (bHCount - 1) * BRICK_PADDING);
   const int leftPadding  = leftoutSpace / 2;
   brickBreakSound        = LoadSound("assets/Sounds/brickBreak.wav");
+  SetSoundVolume(brickBreakSound, 0.5f);
 
   for (int i = 0; i < bVCount; i++) {
     for (int j = 0; j < bHCount; j++) {
@@ -78,6 +80,15 @@ void Bricks::RenderForCurrWindow() {
   }
 }
 
+void Bricks::SetBrickDestroyed(int x, int y) {
+  arrBricks[y][x].SetVisible(false);
+  totalBricks--;
+}
+
 bool Bricks::IsAllBricksDestroyed() {
   return totalBricks == 0;
+}
+
+bool Bricks::IsBrickDestroyed(int x, int y) {
+  return !arrBricks[y][x].IsVisible();
 }

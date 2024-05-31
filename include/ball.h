@@ -27,4 +27,8 @@ private:
   Sound wallHitSound;
   Sound gameOverSound;
   unsigned int ballHitPower;
+  Rectangle frameRec;
+  int currentFrame;
+  int framesCounter;
+  int framesSpeed;
 };

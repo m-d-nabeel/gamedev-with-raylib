@@ -8,7 +8,7 @@ Ball::Ball() {
   speed          = {0, 0};
   defaultSpeed   = 10.0f;
   radius         = 15;
-  texture        = LoadTexture("assets/Balls/Ball 7.png");
+  texture        = LoadTexture("assets/Balls/EggBlue.png");
   texture.height = radius * 2;
   texture.width  = radius * 2;
   wallHitSound   = LoadSound("assets/Sounds/wallHit.wav");
@@ -42,8 +42,7 @@ bool Ball::IsCollidingWithBottomWall() const {
 }
 
 void Ball::Draw() const {
-  // add a little hollow circle to the ball
-  DrawCircleGradient(position.x, position.y, 2 * radius, BLUE, {255, 255, 255, 0});
+  DrawCircleGradient(position.x, position.y, 1.5f * radius, BLUE, {255, 255, 255, 0});
   DrawTextureV(texture, Vector2Subtract(position, {radius, radius}), WHITE);
 }
 

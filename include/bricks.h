@@ -16,6 +16,8 @@ public:
   void RenderForCurrWindow();
   bool IsAllBricksDestroyed();
   void Reset();
+  bool IsBrickDestroyed(int x, int y);
+  void SetBrickDestroyed(int x, int y);
   ~Bricks() = default;
 
 private:

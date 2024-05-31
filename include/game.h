@@ -16,6 +16,8 @@ public:
   void HandleKeyboardInput();
   void RedrawBricks();
   static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0);
+  void SaveGameProgress();
+  void LoadGameProgress();
   ~Game() = default;
 
 private:
@@ -23,15 +25,17 @@ private:
   Bat bat;
   Bricks bricks;
   GameState gameState;
+  Texture2D heartTexture;
+  PowerUpType powerUpType;
+  PowerUpState powerUpState;
+  PowerUpDuration powerUpDuration;
+  Sound allBricksBrokenSound;
+
+private:
   bool isFullScreen;
   unsigned int hBricksCount;
   unsigned int vBricksCount;
   unsigned int score;
   unsigned int lives;
   unsigned int level;
-  Texture2D heartTexture;
-  PowerUpType powerUpType;
-  PowerUpState powerUpState;
-  PowerUpDuration powerUpDuration;
-  Sound allBricksBrokenSound;
 };

@@ -8,7 +8,6 @@ int main() {
   SetTargetFPS(FRAME_RATE);
   Game game = Game();
   game.ResetGame();
-
   while (!WindowShouldClose()) {
     game.LoopLogic();
   }

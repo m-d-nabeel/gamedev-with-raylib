@@ -2,8 +2,10 @@
 #include "../include/constants.h"
 #include "../include/utils.h"
 #include "raylib.h"
+#include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <string>
 
 constexpr bool DEB_ENV = false;
@@ -21,6 +23,7 @@ Game::Game() {
   level                = 1;
   powerUpType          = NONE;
   powerUpState         = INACTIVE;
+  gameSaveEvent        = NULL_EVENT;
   heartTexture         = LoadTexture("assets/heart.png");
   heartTexture.width   = 25;
   heartTexture.height  = 25;
@@ -40,7 +43,6 @@ void Game::ResetGame() {
 
 void Game::UpdateGame() {
   if (gameState == GAME_OVER || gameState == PAUSED || gameState == GAME_WON) {
-    SaveGameProgress();
     return;
   }
   if (ball.IsCollidingWithBottomWall()) {
@@ -93,7 +95,7 @@ void Game::DrawGame() {
     DrawCenteredText("Press SPACE to pause ", 20, GRAY, 40);
     break;
   case PAUSED:
-    DrawCenteredText("Paused", 50, BLUE, -50);
+    DisplayPauseMenu();
     break;
   case GAME_OVER:
     DrawCenteredText("Game Over", 60, RED, -60);
@@ -124,14 +126,9 @@ void Game::HandleKeyboardInput() {
     }
   }
   if (IsKeyPressed(KEY_F11)) {
-    if (isFullScreen) {
-      SetWindowSize(INIT_SWIDTH, INIT_SHEIGHT);
-      isFullScreen = false;
-    } else {
-      int monitor = GetCurrentMonitor();
-      SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
-      isFullScreen = true;
-    }
+    int monitor = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+    isFullScreen = true;
   }
 }
 
@@ -146,6 +143,98 @@ void Game::LoopLogic() {
     isFullScreen = false;
     RedrawBricks();
     ball.SetDefaultSpeed(ball.GetDefaultSpeed() * 1.25f);
+  }
+}
+
+void Game::DisplayPauseMenu() {
+  EndDrawing();
+
+  Rectangle pauseMenuRect = {(float)GetScreenWidth() / 2 - 250, (float)GetScreenHeight() / 2 - 250, 500, 500};
+  int selectedOption      = 0;
+  Sound navigateSound     = LoadSound("assets/Sounds/wallHit.wav");
+  Sound selectSound       = LoadSound("assets/Sounds/brickBreak.wav");
+
+  defer({
+    UnloadSound(navigateSound);
+    UnloadSound(selectSound);
+    printf("INFO: DEFER: Sounds unloaded successfully\n");
+    BeginDrawing();
+  });
+
+  while (!WindowShouldClose() && gameState == PAUSED) {
+    if (IsKeyPressed(KEY_DOWN)) {
+      selectedOption++;
+      PlaySound(navigateSound);
+      if (selectedOption > 4)
+        selectedOption = 0;
+    }
+    if (IsKeyPressed(KEY_UP)) {
+      selectedOption--;
+      PlaySound(navigateSound);
+      if (selectedOption < 0)
+        selectedOption = 4;
+    }
+    if (IsKeyPressed(KEY_ENTER)) {
+      PlaySound(selectSound);
+      switch (selectedOption) {
+      case 0:
+        gameState = PLAYING;
+        return;
+      case 1:
+        gameState = PLAYING;
+        ResetGame();
+        return;
+      case 2:
+        gameState = PLAYING;
+        ResetGame();
+        LoadGameProgress();
+        return;
+      case 3:
+        SaveGameProgress();
+        break;
+      case 4:
+        gameSaveEvent = EXIT_EVENT;
+        return;
+      }
+    }
+    BeginDrawing();
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 100});
+    DrawRectangleGradientEx(pauseMenuRect, Color{17, 24, 39, 255}, BLACK, Color{17, 24, 39, 255}, BLACK);
+    DrawCenteredText("Resume", 30, selectedOption == 0 ? RED : WHITE, -100);
+    DrawCenteredText("Restart", 30, selectedOption == 1 ? RED : WHITE, -50);
+    DrawCenteredText("Load Game", 30, selectedOption == 2 ? RED : WHITE);
+    DrawCenteredText("Save Game", 30, selectedOption == 3 ? RED : WHITE, 50);
+    DrawCenteredText("Exit", 30, selectedOption == 4 ? RED : WHITE, 100);
+    DrawCenteredText("HOTKEYS: [Esc - Exit] [SPACE - Pause/Resume]", 20, GRAY, 150);
+    DrawCenteredText("[R - Restart] [L - Load Game] [S - Save Game]", 20, GRAY, 175);
+    EndDrawing();
+    if (IsKeyPressed(KEY_R)) {
+      PlaySound(selectSound);
+      gameState = PLAYING;
+      ResetGame();
+      return;
+    }
+    if (IsKeyPressed(KEY_L)) {
+      PlaySound(selectSound);
+      gameState = PLAYING;
+      ResetGame();
+      LoadGameProgress();
+      return;
+    }
+    if (IsKeyPressed(KEY_S)) {
+      PlaySound(selectSound);
+      SaveGameProgress();
+    }
+    if (IsKeyPressed(KEY_ESCAPE)) {
+      PlaySound(selectSound);
+      gameSaveEvent = EXIT_EVENT;
+      return;
+    }
+    if (IsKeyPressed(KEY_SPACE)) {
+      PlaySound(selectSound);
+      gameState = PLAYING;
+      return;
+    }
   }
 }
 
@@ -218,4 +307,8 @@ void Game::LoadGameProgress() {
     }
     saveDataFile.close();
   }
+}
+
+bool Game::IsGameEvent(GameEvents gameEvent) {
+  return gameSaveEvent == gameEvent;
 }

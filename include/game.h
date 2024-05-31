@@ -18,6 +18,8 @@ public:
   static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0);
   void SaveGameProgress();
   void LoadGameProgress();
+  void DisplayPauseMenu();
+  bool IsGameEvent(GameEvents gameEvent);
   ~Game() = default;
 
 private:
@@ -25,6 +27,7 @@ private:
   Bat bat;
   Bricks bricks;
   GameState gameState;
+  GameEvents gameSaveEvent;
   Texture2D heartTexture;
   PowerUpType powerUpType;
   PowerUpState powerUpState;

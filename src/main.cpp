@@ -10,6 +10,9 @@ int main() {
   game.ResetGame();
   while (!WindowShouldClose()) {
     game.LoopLogic();
+    if (game.IsGameEvent(GameEvents::EXIT_EVENT)) {
+      break;
+    }
   }
   CloseAudioDevice();
   CloseWindow();

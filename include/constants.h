@@ -1,6 +1,7 @@
 #pragma once
 
 #include "raylib.h"
+#include <cstddef>
 
 constexpr int FRAME_RATE         = 60;
 constexpr float INIT_SWIDTH      = 1200.0f;
@@ -33,6 +34,14 @@ enum GameState {
   LEVEL_COMPLETE,
   LIVE_LOST,
 };
+
+enum GameEvents {
+  SAVE_EVENT,
+  LOAD_EVENT,
+  EXIT_EVENT,
+  NULL_EVENT,
+};
+
 enum BrickType {
   NORMAL,
   TOUGH,

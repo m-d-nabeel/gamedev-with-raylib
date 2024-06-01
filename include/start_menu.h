@@ -3,6 +3,7 @@
 #include "./brick_breaker/game.h"
 #include "constants.h"
 #include "raylib.h"
+#include "stick_fight/game.h"
 #include "utils.h"
 
 #define TOTAL_OPTIONS 3
@@ -71,15 +72,13 @@ struct StartMenu {
     }
   }
   static void StartStickFightGame() {
-    // Game game = Game();
-    // game.ResetGame();
-    // SetExitKey(KEY_NULL);
-    // while (!WindowShouldClose()) {
-    //   game.LoopLogic();
-    //   if (game.IsGameEvent(GameEvents::EXIT_EVENT)) {
-    //     break;
-    //   }
-    // }
+    StickFightGame game = StickFightGame();
+    while (!WindowShouldClose()) {
+      game.LoopLogic();
+      if (IsKeyPressed(KEY_ESCAPE)) {
+        break;
+      }
+    }
   }
   static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0) {
     float screenWidth  = GetScreenWidth();

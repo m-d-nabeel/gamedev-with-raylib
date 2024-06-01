@@ -15,7 +15,6 @@ public:
   void DrawGame();
   void HandleKeyboardInput();
   void RedrawBricks();
-  static void DrawCenteredText(const char *text, int fontSize, Color color, int paddingY = 0);
   void SaveGameProgress();
   void LoadGameProgress();
   void DisplayPauseMenu();
@@ -27,7 +26,7 @@ private:
   Bat bat;
   Bricks bricks;
   GameState gameState;
-  GameEvents gameSaveEvent;
+  GameEvents gameEvent;
   Texture2D heartTexture;
   PowerUpType powerUpType;
   PowerUpState powerUpState;

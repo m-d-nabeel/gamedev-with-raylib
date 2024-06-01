@@ -1,5 +1,6 @@
 #include "../include/game.h"
 #include "../include/constants.h"
+#include "../include/start_menu.h"
 #include "../include/utils.h"
 #include "raylib.h"
 #include <cstdio>
@@ -23,7 +24,7 @@ Game::Game() {
   level                = 1;
   powerUpType          = NONE;
   powerUpState         = INACTIVE;
-  gameSaveEvent        = NULL_EVENT;
+  gameEvent            = NULL_EVENT;
   heartTexture         = LoadTexture("assets/heart.png");
   heartTexture.width   = 25;
   heartTexture.height  = 25;
@@ -82,8 +83,8 @@ void Game::DrawGame() {
   // END OF GAMEPLAY INFORMATION DISPLAY
 
   if (gameState != PLAYING && gameState != LIVE_LOST) {
-    DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
-    DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
+    StartMenu::DrawCenteredText("Press R to restart", 20, LIGHTGRAY);
+    StartMenu::DrawCenteredText("Press ESC to exit", 20, LIGHTGRAY, 20);
   }
 
   bricks.Draw();
@@ -92,23 +93,23 @@ void Game::DrawGame() {
 
   switch (gameState) {
   case PLAYING:
-    DrawCenteredText("Press SPACE to pause ", 20, GRAY, 40);
+    StartMenu::DrawCenteredText("Press SPACE to pause ", 20, GRAY, 40);
     break;
   case PAUSED:
     DisplayPauseMenu();
     break;
   case GAME_OVER:
-    DrawCenteredText("Game Over", 60, RED, -60);
+    StartMenu::DrawCenteredText("Game Over", 60, RED, -60);
     break;
   case GAME_WON:
-    DrawCenteredText("You Won", 60, GREEN, -60);
+    StartMenu::DrawCenteredText("You Won", 60, GREEN, -60);
     break;
   case LEVEL_COMPLETE:
-    DrawCenteredText("Level Complete", 50, GREEN, -50);
+    StartMenu::DrawCenteredText("Level Complete", 50, GREEN, -50);
     break;
   case LIVE_LOST:
-    DrawCenteredText("Life Lost", 50, RED, -50);
-    DrawCenteredText("Press ENTER to continue", 20, GRAY, 20);
+    StartMenu::DrawCenteredText("Life Lost", 50, RED, -50);
+    StartMenu::DrawCenteredText("Press ENTER to continue", 20, GRAY, 20);
     break;
   }
 }
@@ -121,7 +122,7 @@ void Game::HandleKeyboardInput() {
   if (IsKeyPressed(KEY_SPACE)) {
     if (gameState == PLAYING) {
       gameState = PAUSED;
-    } else if (gameState == PAUSED) {
+    } else if (gameState == PAUSED || gameState == LIVE_LOST) {
       gameState = PLAYING;
     }
   }
@@ -129,6 +130,9 @@ void Game::HandleKeyboardInput() {
     int monitor = GetCurrentMonitor();
     SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
     isFullScreen = true;
+  }
+  if (IsKeyPressed(KEY_ESCAPE)) {
+    gameEvent = EXIT_EVENT;
   }
 }
 
@@ -193,20 +197,20 @@ void Game::DisplayPauseMenu() {
         SaveGameProgress();
         break;
       case 4:
-        gameSaveEvent = EXIT_EVENT;
+        gameEvent = EXIT_EVENT;
         return;
       }
     }
     BeginDrawing();
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, 100});
     DrawRectangleGradientEx(pauseMenuRect, Color{17, 24, 39, 255}, BLACK, Color{17, 24, 39, 255}, BLACK);
-    DrawCenteredText("Resume", 30, selectedOption == 0 ? RED : WHITE, -100);
-    DrawCenteredText("Restart", 30, selectedOption == 1 ? RED : WHITE, -50);
-    DrawCenteredText("Load Game", 30, selectedOption == 2 ? RED : WHITE);
-    DrawCenteredText("Save Game", 30, selectedOption == 3 ? RED : WHITE, 50);
-    DrawCenteredText("Exit", 30, selectedOption == 4 ? RED : WHITE, 100);
-    DrawCenteredText("HOTKEYS: [Esc - Exit] [SPACE - Pause/Resume]", 20, GRAY, 150);
-    DrawCenteredText("[R - Restart] [L - Load Game] [S - Save Game]", 20, GRAY, 175);
+    StartMenu::DrawCenteredText("Resume", 30, selectedOption == 0 ? RED : WHITE, -100);
+    StartMenu::DrawCenteredText("Restart", 30, selectedOption == 1 ? RED : WHITE, -50);
+    StartMenu::DrawCenteredText("Load Game", 30, selectedOption == 2 ? RED : WHITE);
+    StartMenu::DrawCenteredText("Save Game", 30, selectedOption == 3 ? RED : WHITE, 50);
+    StartMenu::DrawCenteredText("Exit", 30, selectedOption == 4 ? RED : WHITE, 100);
+    StartMenu::DrawCenteredText("HOTKEYS: [Esc - Exit] [SPACE - Pause/Resume]", 20, GRAY, 150);
+    StartMenu::DrawCenteredText("[R - Restart] [L - Load Game] [S - Save Game]", 20, GRAY, 175);
     EndDrawing();
     if (IsKeyPressed(KEY_R)) {
       PlaySound(selectSound);
@@ -227,7 +231,7 @@ void Game::DisplayPauseMenu() {
     }
     if (IsKeyPressed(KEY_ESCAPE)) {
       PlaySound(selectSound);
-      gameSaveEvent = EXIT_EVENT;
+      gameEvent = EXIT_EVENT;
       return;
     }
     if (IsKeyPressed(KEY_SPACE)) {
@@ -236,16 +240,6 @@ void Game::DisplayPauseMenu() {
       return;
     }
   }
-}
-
-void Game::DrawCenteredText(const char *text, int fontSize, Color color, int paddingY) {
-  float screenWidth  = GetScreenWidth();
-  float screenHeight = GetScreenHeight();
-  float textWidth    = MeasureText(text, fontSize);
-  float textHeight   = fontSize;
-  float posX         = screenWidth / 2 - textWidth / 2;
-  float posY         = screenHeight / 2 - textHeight / 2 + paddingY;
-  DrawText(text, static_cast<int>(posX), static_cast<int>(posY), fontSize, color);
 }
 
 void Game::RedrawBricks() {
@@ -309,6 +303,6 @@ void Game::LoadGameProgress() {
   }
 }
 
-bool Game::IsGameEvent(GameEvents gameEvent) {
-  return gameSaveEvent == gameEvent;
+bool Game::IsGameEvent(GameEvents event) {
+  return gameEvent == event;
 }

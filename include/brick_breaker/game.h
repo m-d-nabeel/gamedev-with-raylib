@@ -1,9 +1,9 @@
 #pragma once
 
+#include "../constants.h"
 #include "ball.h"
 #include "bat.h"
 #include "bricks.h"
-#include "constants.h"
 #include "raylib.h"
 
 class Game {

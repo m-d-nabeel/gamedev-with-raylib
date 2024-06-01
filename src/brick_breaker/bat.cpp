@@ -1,6 +1,6 @@
-#include "../include/bat.h"
-#include "../include/ball.h"
-#include "../include/constants.h"
+#include "../../include/brick_breaker/bat.h"
+#include "../../include/brick_breaker/ball.h"
+#include "../../include/constants.h"
 #include "raymath.h"
 #include <raylib.h>
 

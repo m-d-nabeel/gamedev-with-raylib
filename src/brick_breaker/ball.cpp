@@ -1,5 +1,5 @@
-#include "../include/ball.h"
-#include "../include/constants.h"
+#include "../../include/brick_breaker/ball.h"
+#include "../../include/constants.h"
 #include <raylib.h>
 #include <raymath.h>
 

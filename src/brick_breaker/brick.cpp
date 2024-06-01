@@ -1,5 +1,5 @@
-#include "../include/brick.h"
-#include "../include/constants.h"
+#include "../../include/brick_breaker/brick.h"
+#include "../../include/constants.h"
 #include <string>
 #include <vector>
 #include <raylib.h>
@@ -41,7 +41,6 @@ Brick::Brick() {
   ImageCrop(&brickImage, Rectangle{0, 0, width, height});
   texture = LoadTextureFromImage(brickImage);
   UnloadImage(brickImage);
-  
 }
 
 void Brick::Draw() {

@@ -1,9 +1,8 @@
-#include "../include/game.h"
-#include "../include/constants.h"
-#include "../include/start_menu.h"
-#include "../include/utils.h"
+#include "../../include/brick_breaker/game.h"
+#include "../../include/constants.h"
+#include "../../include/start_menu.h"
+#include "../../include/utils.h"
 #include "raylib.h"
-#include <cstdio>
 #include <filesystem>
 #include <fstream>
 #include <iostream>

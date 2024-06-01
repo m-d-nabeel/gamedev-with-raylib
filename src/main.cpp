@@ -6,6 +6,7 @@ int main() {
   InitWindow(INIT_SWIDTH, INIT_SHEIGHT, "Breakout Game");
   InitAudioDevice();
   SetTargetFPS(FRAME_RATE);
+  SetExitKey(KEY_NULL);
   // Start the game
   StartMenu::DisplayStartMenu();
   // Close the game

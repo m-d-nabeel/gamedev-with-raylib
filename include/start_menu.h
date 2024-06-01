@@ -1,10 +1,9 @@
 #pragma once
 
+#include "./brick_breaker/game.h"
 #include "constants.h"
-#include "game.h"
 #include "raylib.h"
 #include "utils.h"
-#include <cstddef>
 
 #define TOTAL_OPTIONS 3
 
@@ -64,7 +63,6 @@ struct StartMenu {
   static void StartBrickBreaker() {
     Game game = Game();
     game.ResetGame();
-    SetExitKey(KEY_NULL);
     while (!WindowShouldClose()) {
       game.LoopLogic();
       if (game.IsGameEvent(GameEvents::EXIT_EVENT)) {

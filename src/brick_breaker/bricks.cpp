@@ -1,6 +1,6 @@
-#include "../include/bricks.h"
-#include "../include/brick.h"
-#include "../include/constants.h"
+#include "../../include/brick_breaker/bricks.h"
+#include "../../include/brick_breaker/brick.h"
+#include "../../include/constants.h"
 #include "raymath.h"
 #include <vector>
 #include <raylib.h>

@@ -1,10 +1,10 @@
 #pragma once
 
+#include "base_stick_figure.h"
 #include "raylib.h"
-#include "stick_figure.h"
 class StickFightGame {
 private:
-  StickFigure stickFigure;
+  StickFigure *stickFigure;
   Texture background;
 
 public:

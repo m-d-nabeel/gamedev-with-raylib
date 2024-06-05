@@ -63,3 +63,35 @@ enum PowerUpDuration {
   SHORT = 50,
   LONG  = 100,
 };
+
+/*
+enum class FigureState {
+    IDLE,
+    AIR_ATTACK,
+    CLIMB,
+    COMBO,
+    DEATH,
+    DASH,
+    HIT,
+    JUMP,
+    RUN,
+    SLIDE,
+    WALK,
+};
+
+// Mapping enum values to their corresponding string representations
+const std::unordered_map<FigureState, std::string> FigureStateStrings = {
+    {FigureState::IDLE, "Idle"},
+    {FigureState::AIR_ATTACK, "Air Attack"},
+    {FigureState::CLIMB, "Climb"},
+    {FigureState::COMBO, "Combo"},
+    {FigureState::DEATH, "Death"},
+    {FigureState::DASH, "Dash"},
+    {FigureState::HIT, "Hit"},
+    {FigureState::JUMP, "Jump"},
+    {FigureState::RUN, "Run"},
+    {FigureState::SLIDE, "Slide"},
+    {FigureState::WALK, "Walk"},
+};
+
+*/

@@ -8,7 +8,7 @@
 // -------------------------SWORD STICK FIGURE-------------------------
 SwordStickFigure::SwordStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Sword sprites";
-  LoadTextures(path, "Idle");
+  LoadTextures(path);
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for SwordStickFigure." << std::endl;
   }
@@ -17,7 +17,7 @@ SwordStickFigure::SwordStickFigure() {
 // -------------------------FIGHTER STICK FIGURE-------------------------
 FighterStickFigure::FighterStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Fighter sprites";
-  LoadTextures(path, "Idle");
+  LoadTextures(path);
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for FighterStickFigure." << std::endl;
   }
@@ -26,7 +26,7 @@ FighterStickFigure::FighterStickFigure() {
 // -------------------------PISTOL STICK FIGURE-------------------------
 PistolStickFigure::PistolStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Pistol sprites";
-  LoadTextures(path, "Idle");
+  LoadTextures(path);
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for PistolStickFigure." << std::endl;
   }

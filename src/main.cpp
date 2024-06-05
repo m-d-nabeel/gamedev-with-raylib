@@ -3,10 +3,12 @@
 #include <raylib.h>
 
 int main() {
-  InitWindow(INIT_SWIDTH, INIT_SHEIGHT, "Breakout Game");
+  int monitor = GetCurrentMonitor();
+  InitWindow(GetMonitorWidth(monitor), GetMonitorWidth(monitor), "Breakout Game");
   InitAudioDevice();
   SetTargetFPS(FRAME_RATE);
   SetExitKey(KEY_NULL);
+  ToggleFullscreen();
   // Start the game
   StartMenu::DisplayStartMenu();
   // Close the game

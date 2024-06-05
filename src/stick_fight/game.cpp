@@ -1,17 +1,20 @@
 #include "../../include/stick_fight/game.h"
 #include "../../include/stick_fight/derived_stick_figure.h"
 #include "raylib.h"
-#include <iostream>
+#include <string>
 
-StickFightGame::StickFightGame() : stickFigure(new FighterStickFigure()), background(LoadTexture("assets/StickFigure/Extras/background1.png")) {
-  if (stickFigure == nullptr) {
-    std::cerr << "Error: stickFigure is null" << std::endl;
-  }
-  if (background.id == 0) {
-    std::cerr << "Error loading background texture." << std::endl;
-  }
+StickFightGame::StickFightGame() : stickFigure(new SwordStickFigure()), background(LoadTexture("assets/StickFigure/Extras/background1.png")) {
   background.width  = GetScreenWidth();
   background.height = GetScreenHeight();
+}
+
+void StickFightGame::SetStickFigure(StickFigure *stickFigure) {
+  delete this->stickFigure;
+  this->stickFigure = stickFigure;
+}
+
+void StickFightGame::SetBackground(Texture background) {
+  this->background = background;
 }
 
 void StickFightGame::LoopLogic() {
@@ -30,11 +33,52 @@ void StickFightGame::DrawGame() {
 }
 
 void StickFightGame::HandleInput() {
-  // Handle input
+  std::string newState = "Idle";
+
+  if (IsKeyPressed(KEY_R)) {
+    const int random = GetRandomValue(0, 2);
+    if (random == 0) {
+      FighterStickFigure *fighterStickFigure = new FighterStickFigure();
+      SetStickFigure(fighterStickFigure);
+    } else if (random == 1) {
+      SwordStickFigure *swordStickFigure = new SwordStickFigure();
+      SetStickFigure(swordStickFigure);
+    } else if (random == 2) {
+      StickFigure *stickFigure = new PistolStickFigure();
+      SetStickFigure(stickFigure);
+    }
+  }
+
+  if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyDown(KEY_ENTER)) {
+    newState = "combo";
+  } else if (IsKeyDown(KEY_D)) {
+    newState = "dash";
+  } else if (IsKeyDown(KEY_UP)) {
+    newState = "jump";
+  } else if (IsKeyDown(KEY_DOWN)) {
+    newState = "slide";
+  } else if (IsKeyDown(KEY_RIGHT)) {
+    if (IsKeyDown(KEY_LEFT_SHIFT)) {
+      newState = "run";
+    } else {
+      newState = "walk";
+    }
+    stickFigure->MoveRight();
+  } else if (IsKeyDown(KEY_LEFT)) {
+    if (IsKeyDown(KEY_LEFT_SHIFT)) {
+      newState = "run";
+    } else {
+      newState = "walk";
+    }
+    stickFigure->MoveLeft();
+  }
+
+  if (stickFigure->GetState() != newState) {
+    stickFigure->SetState(newState);
+  }
 }
 
 void StickFightGame::UpdateGame() {
-  // Update the game
+  // stickFigure->Update();
 }
-
 // Path: src/stick_fight/main.cpp

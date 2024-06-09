@@ -18,3 +18,15 @@ public:
   void SetBackground(Texture background);
   // StickFightGame(const StickFightGame &) = delete; // Delete copy constructor
 };
+
+// class KeyboardInputBuffer {
+// private:
+//   std::string buffer;
+
+// public:
+//   KeyboardInputBuffer();
+//   ~KeyboardInputBuffer() = default;
+//   void AddKey(char key);
+//   void ClearBuffer();
+//   std::string GetBuffer();
+// };

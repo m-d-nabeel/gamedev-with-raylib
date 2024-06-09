@@ -9,6 +9,7 @@
 SwordStickFigure::SwordStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Sword sprites";
   LoadTextures(path);
+  figType = SWORD;
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for SwordStickFigure." << std::endl;
   }
@@ -18,6 +19,7 @@ SwordStickFigure::SwordStickFigure() {
 FighterStickFigure::FighterStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Fighter sprites";
   LoadTextures(path);
+  figType = FIGHTER;
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for FighterStickFigure." << std::endl;
   }
@@ -27,6 +29,7 @@ FighterStickFigure::FighterStickFigure() {
 PistolStickFigure::PistolStickFigure() {
   std::filesystem::path path = "assets/StickFigure/Pistol sprites";
   LoadTextures(path);
+  figType = PISTOL;
   if (stickFigures.empty()) {
     std::cerr << "Error: No textures loaded for PistolStickFigure." << std::endl;
   }

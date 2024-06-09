@@ -33,8 +33,7 @@ void StickFightGame::DrawGame() {
 }
 
 void StickFightGame::HandleInput() {
-  std::string newState = "Idle";
-
+  // ------ Change stick figure ------
   if (IsKeyPressed(KEY_R)) {
     const int random = GetRandomValue(0, 2);
     if (random == 0) {
@@ -48,32 +47,32 @@ void StickFightGame::HandleInput() {
       SetStickFigure(stickFigure);
     }
   }
+  // ------ Change stick figure ------
+  std::string newState  = StickFigureState::IDLE;
+  int movementDirection = 0;
 
-  if (IsKeyDown(KEY_RIGHT_SHIFT) && IsKeyDown(KEY_ENTER)) {
-    newState = "combo";
-  } else if (IsKeyDown(KEY_D)) {
-    newState = "dash";
-  } else if (IsKeyDown(KEY_UP)) {
-    newState = "jump";
-  } else if (IsKeyDown(KEY_DOWN)) {
-    newState = "slide";
-  } else if (IsKeyDown(KEY_RIGHT)) {
-    if (IsKeyDown(KEY_LEFT_SHIFT)) {
-      newState = "run";
-    } else {
-      newState = "walk";
-    }
-    stickFigure->MoveRight();
-  } else if (IsKeyDown(KEY_LEFT)) {
-    if (IsKeyDown(KEY_LEFT_SHIFT)) {
-      newState = "run";
-    } else {
-      newState = "walk";
-    }
-    stickFigure->MoveLeft();
+  if (IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT)) {
+    movementDirection = 1;
+    newState          = StickFigureState::RUN;
   }
-
+  if (IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT)) {
+    movementDirection = -1;
+    newState          = StickFigureState::RUN;
+  }
+  if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT_SHIFT)) {
+    movementDirection = 1;
+    newState          = StickFigureState::WALK;
+  }
+  if (IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_LEFT_SHIFT)) {
+    movementDirection = -1;
+    newState          = StickFigureState::WALK;
+  }
+  if (IsKeyDown(KEY_SPACE)) {
+    newState = StickFigureState::JUMP;
+  }
+  
   if (stickFigure->GetState() != newState) {
+    stickFigure->SetMovementDirection(movementDirection);
     stickFigure->SetState(newState);
   }
 }

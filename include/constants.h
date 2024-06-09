@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 #include <cstddef>
+#include <string>
 
 constexpr int FRAME_RATE         = 60;
 constexpr float INIT_SWIDTH      = 1200.0f;
@@ -64,34 +65,25 @@ enum PowerUpDuration {
   LONG  = 100,
 };
 
-/*
-enum class FigureState {
-    IDLE,
-    AIR_ATTACK,
-    CLIMB,
-    COMBO,
-    DEATH,
-    DASH,
-    HIT,
-    JUMP,
-    RUN,
-    SLIDE,
-    WALK,
+// Stick Fight Game Constants
+enum FigureType {
+  FIGHTER,
+  SWORD,
+  PISTOL,
+};
+struct StickFigureState {
+  inline static const std::string IDLE       = "Idle";
+  inline static const std::string AIR_ATTACK = "air_attack";
+  inline static const std::string CLIMB      = "climb";
+  inline static const std::string COMBO      = "combo";
+  inline static const std::string DEATH      = "death";
+  inline static const std::string DASH       = "dash";
+  inline static const std::string HIT        = "hit";
+  inline static const std::string JUMP       = "jump";
+  inline static const std::string RUN        = "run";
+  inline static const std::string SLIDE      = "slide";
+  inline static const std::string WALK       = "walk";
+  inline static const std::string SHOT       = "shot";
 };
 
-// Mapping enum values to their corresponding string representations
-const std::unordered_map<FigureState, std::string> FigureStateStrings = {
-    {FigureState::IDLE, "Idle"},
-    {FigureState::AIR_ATTACK, "Air Attack"},
-    {FigureState::CLIMB, "Climb"},
-    {FigureState::COMBO, "Combo"},
-    {FigureState::DEATH, "Death"},
-    {FigureState::DASH, "Dash"},
-    {FigureState::HIT, "Hit"},
-    {FigureState::JUMP, "Jump"},
-    {FigureState::RUN, "Run"},
-    {FigureState::SLIDE, "Slide"},
-    {FigureState::WALK, "Walk"},
-};
-
-*/
+constexpr int FIGURE_SPEED = 7;

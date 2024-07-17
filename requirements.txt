@@ -1,0 +1,6 @@
+ninja-build
+cmake
+vcpkg
+xorg-dev
+libxcursor-dev
+libxinerama-dev

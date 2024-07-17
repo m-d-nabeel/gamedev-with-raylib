@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(raylib-cpp-gamedev)
 set(CMAKE_CXX_STANDARD 17)
-include("/home/disable/vcpkg/scripts/buildsystems/vcpkg.cmake")
+include("/home/m-d-nabeel/vcpkg/scripts/buildsystems/vcpkg.cmake")
 find_package(raylib CONFIG REQUIRED)
 file(GLOB MAIN_SOURCES "src/**.cpp")
 file(GLOB BRICK_BREAKER_SOURCES "src/brick_breaker/**.cpp")

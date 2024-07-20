@@ -1,10 +1,17 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.2)
+
 project(raylib-cpp-gamedev)
+
 set(CMAKE_CXX_STANDARD 17)
+
 include("/home/m-d-nabeel/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
 find_package(raylib CONFIG REQUIRED)
+
 file(GLOB MAIN_SOURCES "src/**.cpp")
 file(GLOB BRICK_BREAKER_SOURCES "src/brick_breaker/**.cpp")
 file(GLOB STICK_FIGHT_SOURCES "src/stick_fight/**.cpp")
+
 add_executable(raylib-cpp-gamedev ${MAIN_SOURCES} ${BRICK_BREAKER_SOURCES} ${STICK_FIGHT_SOURCES})
+
 target_link_libraries(raylib-cpp-gamedev PRIVATE raylib)

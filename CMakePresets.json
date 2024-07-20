@@ -6,8 +6,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_C_COMPILER": "clang"
+        "CMAKE_CXX_COMPILER": "clang++-16",
+        "CMAKE_C_COMPILER": "clang-16"
       }
     }
   ]

@@ -1,4 +1,5 @@
 CompileFlags:
   Add:
-    - --include-directory=/home/disable/vcpkg/installed/x64-linux/include
-    - -std=c++17
+    - --include-directory=/home/m-d-nabeel/Projects/raylib-cpp-gamedev/vcpkg_installed/x64-linux/include
+    - --include-directory=/home/m-d-nabeel/Projects/raylib-cpp-gamedev/include
+    - -std=c++20

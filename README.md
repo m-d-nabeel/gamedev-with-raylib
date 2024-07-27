@@ -3,13 +3,13 @@
 - Clone the repository using the following command:
 
 ```sh
-git clone https://github.com/m-d-nabeel/game-dev-with-raylib.git
+git clone https://github.com/m-d-nabeel/gamedev-with-raylib.git
 ```
 
 - Change to the project directory:
 
 ```sh
-cd game-dev-with-raylib
+cd gamedev-with-raylib
 ```
 
 - Type the following command to configure your project:

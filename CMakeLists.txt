@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(raylib-cpp-gamedev)
+project(gamedev-with-raylib)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

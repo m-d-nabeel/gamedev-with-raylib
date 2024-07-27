@@ -1,3 +1,5 @@
+cmake -S . -B build
+
 emcc -c build/_deps/raylib-src/src/rcore.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rcore.o
 emcc -c build/_deps/raylib-src/src/rshapes.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rshapes.o
 emcc -c build/_deps/raylib-src/src/rtextures.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rtextures.o

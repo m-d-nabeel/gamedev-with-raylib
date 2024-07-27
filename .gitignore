@@ -69,5 +69,3 @@ compile_commands.json
 # Android
 *apk*
 android.*
-
-# cmake -S . -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=/home/m-d-nabeel/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"

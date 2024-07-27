@@ -28,16 +28,43 @@ cmake --build build
 
 - Inside the build folder is another folder (named the same as the project name on CMakeLists.txt) with the executable and resources folder.
 
+Here's the updated `### WebAssembly with Emscripten` section for your README:
+
 ### WebAssembly with Emscripten
 
 To build and run the project for the web using Emscripten, follow these steps:
 
 1. **Install Emscripten**: Make sure you have Emscripten installed and activated.
 
-2. **Compile the Project**: Use the following `em++` command to compile the project:
+2. **Compile Raylib Source Files**: Use the following `emcc` commands to compile the necessary Raylib source files:
 
 ```sh
-em++ -o game.html \
+emcc -c build/_deps/raylib-src/src/rcore.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rcore.o
+emcc -c build/_deps/raylib-src/src/rshapes.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rshapes.o
+emcc -c build/_deps/raylib-src/src/rtextures.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rtextures.o
+emcc -c build/_deps/raylib-src/src/rtext.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rtext.o
+emcc -c build/_deps/raylib-src/src/rmodels.c -Os -Wall -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 -o build/_deps/raylib-src/src/rmodels.o
+emcc -c build/_deps/raylib-src/src/utils.c -Os -Wall -DPLATFORM_WEB -o build/_deps/raylib-src/src/utils.o
+emcc -c build/_deps/raylib-src/src/raudio.c -Os -Wall -DPLATFORM_WEB -o build/_deps/raylib-src/src/raudio.o
+```
+
+3. **Create a Static Library**: Use the following `emar` command to create a static library from the compiled Raylib object files:
+
+```sh
+emar rcs  build/_deps/raylib-src/src/libraylib.a \
+          build/_deps/raylib-src/src/rcore.o \
+          build/_deps/raylib-src/src/rshapes.o \
+          build/_deps/raylib-src/src/rtextures.o \
+          build/_deps/raylib-src/src/rtext.o \
+          build/_deps/raylib-src/src/rmodels.o \
+          build/_deps/raylib-src/src/utils.o \
+          build/_deps/raylib-src/src/raudio.o
+```
+
+4. **Compile the Project**: Use the following `em++` command to compile the project:
+
+```sh
+em++ -o index.html \
   $(find src -name '*.cpp') \
   -I./src/include \
   -I./build/_deps/raylib-src/src \
@@ -49,11 +76,11 @@ em++ -o game.html \
 
 #### Explanation:
 
-- `-o game.html`: Specifies the output file to be `game.html`.
+- `-o index.html`: Specifies the output file to be `index.html`.
 - `$(find src -name '*.cpp')`: Finds all `.cpp` files in the `src` directory and its subdirectories.
 - `-I./src/include`: Adds the `src/include` directory to the list of directories to search for header files.
-- `-I/home/m-d-nabeel/Projects/game-dev-with-raylib/build/_deps/raylib-src/src`: Adds the Raylib include directory.
-- `-L/home/m-d-nabeel/Projects/game-dev-with-raylib/build/_deps/raylib-src/src`: Adds the Raylib library directory.
+- `-I./build/_deps/raylib-src/src`: Adds the Raylib include directory.
+- `-L./build/_deps/raylib-src/src`: Adds the Raylib library directory.
 - `-lraylib`: Links against the Raylib library.
 - `-s USE_GLFW=3`: Uses GLFW version 3 for window and context creation.
 - `-s ASYNCIFY`: Enables asyncify to support asynchronous operations.
@@ -61,13 +88,13 @@ em++ -o game.html \
 - `--shell-file src/minshell.html`: Uses a custom HTML shell file.
 - `-DPLATFORM_WEB`: Defines the `PLATFORM_WEB` macro for conditional compilation.
 
-3. **Run the Generated HTML File**: Use Emscripten’s `emrun` to run the generated HTML file:
+5. **Run the Generated HTML File**: Use Emscripten’s `emrun` to run the generated HTML file:
 
 ```sh
-emrun game.html
+emrun index.html
 ```
 
-This command starts a local web server and opens `game.html` in your default web browser.
+This command starts a local web server and opens `index.html` in your default web browser.
 
 ### License
 

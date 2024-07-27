@@ -1,6 +1,6 @@
-#include "../../include/brick_breaker/bricks.h"
-#include "../../include/brick_breaker/brick.h"
-#include "../../include/constants.h"
+#include "../include/brick_breaker/bricks.h"
+#include "../include/brick_breaker/brick.h"
+#include "../include/constants.h"
 #include "raymath.h"
 #include <vector>
 #include <raylib.h>
@@ -12,7 +12,7 @@ Bricks::Bricks() {
   bVCount         = 0;
   totalBricks     = 0;
   arrBricks       = std::vector<std::vector<Brick>>();
-  brickBreakSound = LoadSound("assets/Sounds/brickBreak.wav");
+  brickBreakSound = LoadSound("src/resources/Sounds/brickBreak.wav");
   SetSoundVolume(brickBreakSound, 0.5f);
 }
 
@@ -21,7 +21,7 @@ Bricks::Bricks(int hCount, int vCount) : bHCount(hCount), bVCount(vCount) {
   totalBricks            = bHCount * bVCount;
   const int leftoutSpace = GetScreenWidth() - (bHCount * BRICK_WIDTH + (bHCount - 1) * BRICK_PADDING);
   const int leftPadding  = leftoutSpace / 2;
-  brickBreakSound        = LoadSound("assets/Sounds/brickBreak.wav");
+  brickBreakSound        = LoadSound("src/resources/Sounds/brickBreak.wav");
   SetSoundVolume(brickBreakSound, 0.5f);
 
   for (int i = 0; i < bVCount; i++) {

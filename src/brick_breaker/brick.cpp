@@ -1,33 +1,33 @@
-#include "../../include/brick_breaker/brick.h"
-#include "../../include/constants.h"
+#include "../include/brick_breaker/brick.h"
+#include "../include/constants.h"
 #include <string>
 #include <vector>
 #include <raylib.h>
 
 const std::vector<std::string> bricks = {
-    "assets/Bricks/Brick 1 - 128x128.png",
-    "assets/Bricks/Brick 2 - 128x128.png",
-    "assets/Bricks/Brick 3 - 128x128.png",
-    "assets/Bricks/Brick 4 - 128x128.png",
-    "assets/Bricks/Brick 5 - 128x128.png",
-    "assets/Bricks/Brick 6 - 128x128.png",
-    "assets/Bricks/Brick 7 - 128x128.png",
-    "assets/Bricks/Brick 8 - 128x128.png",
-    "assets/Bricks/Brick 9 - 128x128.png",
-    "assets/Bricks/Brick 10 - 128x128.png",
-    "assets/Bricks/Brick 11 - 128x128.png",
-    "assets/Bricks/Brick 12 - 128x128.png",
-    "assets/Bricks/Brick 13 - 128x128.png",
-    "assets/Bricks/Brick 14 - 128x128.png",
-    "assets/Bricks/Brick 15 - 128x128.png",
-    "assets/Bricks/Brick 16 - 128x128.png",
-    "assets/Bricks/Brick 17 - 128x128.png",
-    "assets/Bricks/Brick 18 - 128x128.png",
-    "assets/Bricks/Brick 19 - 128x128.png",
-    "assets/Bricks/Brick 20 - 128x128.png",
-    "assets/Bricks/Brick 21 - 128x128.png",
-    "assets/Bricks/Brick 22 - 128x128.png",
-    "assets/Bricks/Brick 23 - 128x128.png",
+    "src/resources/Bricks/Brick 1 - 128x128.png",
+    "src/resources/Bricks/Brick 2 - 128x128.png",
+    "src/resources/Bricks/Brick 3 - 128x128.png",
+    "src/resources/Bricks/Brick 4 - 128x128.png",
+    "src/resources/Bricks/Brick 5 - 128x128.png",
+    "src/resources/Bricks/Brick 6 - 128x128.png",
+    "src/resources/Bricks/Brick 7 - 128x128.png",
+    "src/resources/Bricks/Brick 8 - 128x128.png",
+    "src/resources/Bricks/Brick 9 - 128x128.png",
+    "src/resources/Bricks/Brick 10 - 128x128.png",
+    "src/resources/Bricks/Brick 11 - 128x128.png",
+    "src/resources/Bricks/Brick 12 - 128x128.png",
+    "src/resources/Bricks/Brick 13 - 128x128.png",
+    "src/resources/Bricks/Brick 14 - 128x128.png",
+    "src/resources/Bricks/Brick 15 - 128x128.png",
+    "src/resources/Bricks/Brick 16 - 128x128.png",
+    "src/resources/Bricks/Brick 17 - 128x128.png",
+    "src/resources/Bricks/Brick 18 - 128x128.png",
+    "src/resources/Bricks/Brick 19 - 128x128.png",
+    "src/resources/Bricks/Brick 20 - 128x128.png",
+    "src/resources/Bricks/Brick 21 - 128x128.png",
+    "src/resources/Bricks/Brick 22 - 128x128.png",
+    "src/resources/Bricks/Brick 23 - 128x128.png",
 };
 
 Brick::Brick() {

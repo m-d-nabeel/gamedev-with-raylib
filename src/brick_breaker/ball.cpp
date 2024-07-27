@@ -1,18 +1,19 @@
-#include "../../include/brick_breaker/ball.h"
-#include "../../include/constants.h"
+#include "../include/brick_breaker/ball.h"
+#include "../include/constants.h"
 #include <raylib.h>
 #include <raymath.h>
+
 
 Ball::Ball() {
   position       = {static_cast<float>(GetScreenWidth() * 1.0 / 2), static_cast<float>(GetScreenHeight() - BRICK_HEIGHT)};
   speed          = {0, 0};
   defaultSpeed   = 10.0f;
   radius         = 15;
-  texture        = LoadTexture("assets/Balls/EggBlue.png");
+  texture        = LoadTexture("src/resources/Balls/EggBlue.png");
   texture.height = radius * 2;
   texture.width  = radius * 2;
-  wallHitSound   = LoadSound("assets/Sounds/wallHit.wav");
-  gameOverSound  = LoadSound("assets/Sounds/gameOver.wav");
+  wallHitSound   = LoadSound("src/resources/Sounds/wallHit.wav");
+  gameOverSound  = LoadSound("src/resources/Sounds/gameOver.wav");
   ballHitPower   = 10;
 }
 

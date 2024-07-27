@@ -1,5 +1,5 @@
-#include "../include/constants.h"
-#include "../include/start_menu.h"
+#include "./include/constants.h"
+#include "./include/start_menu.h"
 #include <raylib.h>
 
 int main() {

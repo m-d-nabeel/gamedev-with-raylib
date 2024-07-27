@@ -1,6 +1,6 @@
-#include "../../include/brick_breaker/bat.h"
-#include "../../include/brick_breaker/ball.h"
-#include "../../include/constants.h"
+#include "../include/brick_breaker/bat.h"
+#include "../include/brick_breaker/ball.h"
+#include "../include/constants.h"
 #include "raymath.h"
 #include <raylib.h>
 
@@ -11,7 +11,7 @@ Bat::Bat() {
   height   = BAT_HEIGHT;
   y        = GetScreenHeight() - BALL_RADIUS;
   movement = 0;
-  hitSound = LoadSound("assets/Sounds/wallHit.wav");
+  hitSound = LoadSound("src/resources/Sounds/wallHit.wav");
 }
 
 void Bat::Reset() {

@@ -1,9 +1,9 @@
-#include "../../include/stick_fight/game.h"
-#include "../../include/stick_fight/derived_stick_figure.h"
+#include "../include/stick_fight/game.h"
+#include "../include/stick_fight/derived_stick_figure.h"
 #include "raylib.h"
 #include <iostream>
 
-StickFightGame::StickFightGame() : stickFigure(new FighterStickFigure()), background(LoadTexture("assets/StickFigure/Extras/background1.png")) {
+StickFightGame::StickFightGame() : stickFigure(new FighterStickFigure()), background(LoadTexture("src/resources/StickFigure/Extras/background1.png")) {
   if (stickFigure == nullptr) {
     std::cerr << "Error: stickFigure is null" << std::endl;
   }

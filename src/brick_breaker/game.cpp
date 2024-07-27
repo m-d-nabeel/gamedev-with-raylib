@@ -1,12 +1,13 @@
-#include "../../include/brick_breaker/game.h"
-#include "../../include/constants.h"
-#include "../../include/start_menu.h"
-#include "../../include/utils.h"
+#include "../include/brick_breaker/game.h"
+#include "../include/constants.h"
+#include "../include/start_menu.h"
+#include "../include/utils.h"
 #include "raylib.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 constexpr bool DEV_ENV = false;
 
@@ -24,10 +25,10 @@ Game::Game() {
   powerUpType          = NONE;
   powerUpState         = INACTIVE;
   gameEvent            = NULL_EVENT;
-  heartTexture         = LoadTexture("assets/heart.png");
+  heartTexture         = LoadTexture("src/resources/heart.png");
   heartTexture.width   = 25;
   heartTexture.height  = 25;
-  allBricksBrokenSound = LoadSound("assets/Sounds/allBricksBrokenSound.wav");
+  allBricksBrokenSound = LoadSound("src/resources/Sounds/allBricksBrokenSound.wav");
 }
 
 void Game::ResetGame() {
@@ -154,8 +155,8 @@ void Game::DisplayPauseMenu() {
 
   Rectangle pauseMenuRect = {(float)GetScreenWidth() / 2 - 250, (float)GetScreenHeight() / 2 - 250, 500, 500};
   int selectedOption      = 0;
-  Sound navigateSound     = LoadSound("assets/Sounds/wallHit.wav");
-  Sound selectSound       = LoadSound("assets/Sounds/brickBreak.wav");
+  Sound navigateSound     = LoadSound("src/resources/Sounds/wallHit.wav");
+  Sound selectSound       = LoadSound("src/resources/Sounds/brickBreak.wav");
 
   defer({
     UnloadSound(navigateSound);

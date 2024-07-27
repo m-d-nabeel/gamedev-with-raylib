@@ -1,4 +1,4 @@
-#include "../../include/stick_fight/base_stick_figure.h"
+#include "../include/stick_fight/base_stick_figure.h"
 #include <iostream>
 #include <raylib.h>
 
